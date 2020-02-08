@@ -39,11 +39,11 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
             <div className="header">
               <Link to="/" style={{ textDecoration: "none" }}>
                 <img alt="logo" className="logo" src={logo} />
-                <span className="title">Ant Design</span>
+                <span className="title">MCF System</span>
               </Link>
             </div>
             <div className="desc">
-              Ant Design 是西湖区最具影响力的 Web 设计规范
+              Monitoring and Controlling Fluid System
             </div>
           </div>
           {children}
