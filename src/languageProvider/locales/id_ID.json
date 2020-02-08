@@ -1,0 +1,11 @@
+{
+  "username": "Username",
+  "username.required": "Harap masukkan Username Anda!",
+  "password": "Password",
+  "password.required": "Harap masukkan Password Anda!",
+  "rememberMe": "Ingat saya",
+  "forgotPassword": "Lupa Password",
+  "login": "Masuk",
+  "or": "Atau",
+  "registerNow": "Daftar sekarang!"
+}

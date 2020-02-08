@@ -1,0 +1,11 @@
+{
+  "username": "Username",
+  "username.required": "Please input your username!",
+  "password": "Password",
+  "password.required": "Please input your Password!",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password",
+  "login": "Login",
+  "or": "Or",
+  "registerNow": "Register now!"
+}
