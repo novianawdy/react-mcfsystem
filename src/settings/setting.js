@@ -1,6 +1,9 @@
 const setting = {
   baseUrl: "http://google.com",
-  language: "EN"
+  appName: "MCF System",
+  appDescription: "Monitoring and Controlling Fluid System",
+  footer: "Monitoring and Controlling Fluid System ©2018",
+  language: "ID"
 };
 
 export const themeConfig = {

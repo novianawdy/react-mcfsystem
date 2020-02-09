@@ -1,17 +1,35 @@
 import React from "react";
-import "./style.css";
-import UserLayout from "../../../layouts/user/UserLayout";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Row, Col, Form, Input, Icon, Checkbox, Button } from "antd";
 import getLang from "../../../lib/getLang";
 
+import UserLayout from "../../../layouts/user/UserLayout";
+import "./style.css";
+
+import action from "../../../redux/auth/action";
+const { loginRequest, clearSuccess, clearError } = action;
+
 class SignInForm extends React.Component {
+  componentDidUpdate = () => {
+    const { success, error } = this.props.auth;
+    const { clearSuccess, clearError } = this.props;
+    if (success === true) {
+      this.props.history.push("/dashboard");
+      clearSuccess();
+    }
+
+    if (error) {
+      clearError();
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        const { loginRequest } = this.props;
+        loginRequest(values);
       }
     });
   };
@@ -65,7 +83,7 @@ class SignInForm extends React.Component {
                   <Col span={12}>
                     {getFieldDecorator("remember", {
                       valuePropName: "checked",
-                      initialValue: true
+                      initialValue: false
                     })(<Checkbox>{getLang({ id: "rememberMe" })}</Checkbox>)}
                   </Col>
                   <Col span={12}>
@@ -83,10 +101,6 @@ class SignInForm extends React.Component {
                       {getLang({ id: "login" })}
                     </Button>
                   </Col>
-                  <Col span={24}>
-                    {getLang({ id: "or" })}{" "}
-                    <a href="/">{getLang({ id: "registerNow" })}</a>
-                  </Col>
                 </Row>
               </Form.Item>
             </Form>
@@ -98,10 +112,17 @@ class SignInForm extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    dashApp: state.dashApp
+    dashApp: state.dashApp,
+    auth: state.auth
   };
+};
+
+const mapDispatchToProps = {
+  loginRequest,
+  clearSuccess,
+  clearError
 };
 
 const SignIn = Form.create({ name: "sign_in_form" })(SignInForm);
 
-export default compose(connect(mapStateToProps))(SignIn);
+export default compose(connect(mapStateToProps, mapDispatchToProps))(SignIn);

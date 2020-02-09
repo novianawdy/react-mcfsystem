@@ -1,7 +1,8 @@
 import action from "./action";
+import setting from "../../settings/setting";
 
 const initState = {
-  language: "ID"
+  language: localStorage.getItem("language") || setting.language
 };
 
 export default function dashAppReducer(state = initState, dispatch) {

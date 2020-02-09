@@ -2,6 +2,7 @@ import * as React from "react";
 import { Dropdown, Menu, Icon } from "antd";
 import { getCurrentLanguage } from "../../settings/language";
 import { store } from "../../redux/store";
+import setting from "../../settings/setting";
 
 type ClickParam = {
   key: string;
@@ -23,7 +24,7 @@ class SelectLang extends React.Component<SelectLangProps, SelectLangState> {
 
   componentDidMount = () => {
     const selectedLang = getCurrentLanguage(
-      store.getState().dashApp.language || "ID"
+      store.getState().dashApp.language || setting.language
     ).languageId;
     this.setState({ selectedLang });
   };
@@ -52,6 +53,7 @@ class SelectLang extends React.Component<SelectLangProps, SelectLangState> {
         selectedKeys={[selectedLang]}
         onClick={param => {
           this.setState({ selectedLang: param.key });
+          localStorage.setItem("language", param.key);
           return onClick ? onClick(param) : param;
         }}
         style={{ minWidth: 160 }}

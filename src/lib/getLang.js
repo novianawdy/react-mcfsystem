@@ -1,22 +1,24 @@
 import { store } from "../redux/store";
 import AppLocale from "../languageProvider/AppLocale";
 import { getCurrentLanguage } from "../settings/language";
+import { getLocal, getSession } from "./helper";
+import setting from "../settings/setting";
 
 /**
  *
  * @param {Object} props
  * @param {String} props.id key kamus
- * @param {{key: "some values"}} props.values
  */
 const getLang = (props = { id: null, values: null }) => {
   const { id, values } = props;
-  const selectedLanguage = store.getState().auth
-    ? store.getState().auth.language
-    : store.getState().dashApp
-    ? store.getState().dashApp.language
-    : undefined;
+  const selectedLanguage =
+    store.getState().auth && (getLocal("at") || getSession("at"))
+      ? store.getState().auth.language
+      : store.getState().dashApp
+      ? store.getState().dashApp.language
+      : undefined;
   const currentAppLocale =
-    AppLocale[getCurrentLanguage(selectedLanguage || "EN").locale];
+    AppLocale[getCurrentLanguage(selectedLanguage || setting.language).locale];
   const { messages, locale } = currentAppLocale;
 
   if (!messages[id]) {

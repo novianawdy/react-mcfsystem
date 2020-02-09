@@ -7,6 +7,7 @@ import SelectLang from "../../components/SelectLang";
 import action from "../../redux/dashApp/action";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import setting from "../../settings/setting";
 
 const { changeLanguage } = action;
 
@@ -39,12 +40,10 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
             <div className="header">
               <Link to="/" style={{ textDecoration: "none" }}>
                 <img alt="logo" className="logo" src={logo} />
-                <span className="title">MCF System</span>
+                <span className="title">{setting.appName}</span>
               </Link>
             </div>
-            <div className="desc">
-              Monitoring and Controlling Fluid System
-            </div>
+            <div className="desc">{setting.appDescription}</div>
           </div>
           {children}
         </div>
