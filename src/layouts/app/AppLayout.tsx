@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, PageHeader } from "antd";
 import Helmet from "react-helmet";
 import "./AppLayout.css";
 import { appRoutes } from "../../router";
@@ -21,17 +21,50 @@ type AppLayoutProps = {
   description?: string;
   children: React.ReactNode;
   location: LocationProps;
+  //   breadcrumbs: boolean;
+  showPageHeader: boolean;
+  pageHeader: React.ReactNode;
+  renderPageHeader: React.ReactNode;
 };
 
 const AppLayout: React.SFC<AppLayoutProps> = ({
   title,
   description,
   children,
-  location
+  location,
+  //   breadcrumbs,
+  showPageHeader,
+  pageHeader,
+  renderPageHeader
 }) => {
-  const currentRoute = appRoutes.find(
-    appRoute => appRoute.path === location.pathname
-  );
+  //   const currentRoute = appRoutes.find(
+  //     appRoute => appRoute.path === location.pathname
+  //   );
+
+  //   const breadcrumb = breadcrumbs ? (
+  //     <Breadcrumb style={{ margin: "16px 0px 0px 0px" }}>
+  //       {currentRoute?.breadcrumbs.map((breadcrumb, key) => {
+  //         if (
+  //           (breadcrumb.path && breadcrumb.path === location.pathname) ||
+  //           !breadcrumb.path
+  //         ) {
+  //           return (
+  //             <Breadcrumb.Item key={key}>
+  //               {getLang({ id: breadcrumb.name })}
+  //             </Breadcrumb.Item>
+  //           );
+  //         } else {
+  //           return (
+  //             <Link to={breadcrumb.path} key={key}>
+  //               <Breadcrumb.Item>
+  //                 {getLang({ id: breadcrumb.name })}
+  //               </Breadcrumb.Item>
+  //             </Link>
+  //           );
+  //         }
+  //       })}
+  //     </Breadcrumb>
+  //   ) : undefined
 
   return (
     <>
@@ -41,46 +74,44 @@ const AppLayout: React.SFC<AppLayoutProps> = ({
       </Helmet>
 
       <Layout className="layout">
-        <Header>
+        <Header className="header">
           <div className="logo" />
           <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={["/dashboard"]}
             selectedKeys={[location.pathname]}
-            style={{ lineHeight: "64px" }}
           >
-            {appRoutes.map(data => (
-              <Menu.Item key={data.path}>
-                {getLang({ id: data.name })}
-              </Menu.Item>
-            ))}
-          </Menu>
-        </Header>
-        <Content style={{ padding: "0 30px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            {currentRoute?.breadcrumbs.map((breadcrumb, key) => {
-              if (
-                (breadcrumb.path && breadcrumb.path === location.pathname) ||
-                !breadcrumb.path
-              ) {
+            {appRoutes.map(data => {
+              if (location.pathname === data.path) {
                 return (
-                  <Breadcrumb.Item key={key}>
-                    {getLang({ id: breadcrumb.name })}
-                  </Breadcrumb.Item>
+                  <Menu.Item key={data.path}>
+                    {getLang({ id: data.name })}
+                  </Menu.Item>
                 );
               } else {
                 return (
-                  <Link to={breadcrumb.path} key={key}>
-                    <Breadcrumb.Item>
-                      {getLang({ id: breadcrumb.name })}
-                    </Breadcrumb.Item>
-                  </Link>
+                  <Menu.Item key={data.path}>
+                    <Link to={data.path}>{getLang({ id: data.name })}</Link>
+                  </Menu.Item>
                 );
               }
             })}
-          </Breadcrumb>
-          <div style={{ background: "#fff", padding: 24 }}>{children}</div>
+          </Menu>
+        </Header>
+        {showPageHeader ? (
+          renderPageHeader ? (
+            renderPageHeader
+          ) : (
+            <PageHeader title={pageHeader} ghost={false} />
+          )
+        ) : (
+          undefined
+        )}
+        <Content style={{ padding: "0 30px" }}>
+          <div style={{ background: "#fff", padding: 24, margin: "16px 0" }}>
+            {children}
+          </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>{setting.footer}</Footer>
       </Layout>
