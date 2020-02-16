@@ -7,7 +7,9 @@ class Dashboard extends Component {
   render() {
     return (
       <AppLayout title="Dashboard" location={this.props.location}>
-        <h1>{getLang({ id: "dashboard" })}</h1>
+        <div style={{ background: "#fff", padding: 24, margin: "16px 0" }}>
+          <h1>{getLang({ id: "dashboard" })}</h1>
+        </div>
       </AppLayout>
     );
   }

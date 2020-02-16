@@ -2,7 +2,7 @@
   min-height: 100vh;
 }
 .header {
-  height: unset;
+  height: 110px;
   padding: 0 30px;
 }
 .logo {
@@ -11,4 +11,33 @@
   background: rgba(255, 255, 255, 0.2);
   margin: 7px 24px 7px 0;
   float: left;
+}
+
+.menu-container-left {
+  display: flex;
+  height: 100%;
+}
+
+.menu-container-right {
+  text-align: right;
+  margin: auto 0;
+}
+
+.ant-menu-dark.ant-menu-horizontal {
+  margin: auto 0;
+  width: 100%;
+}
+
+.ant-menu-horizontal {
+  line-height: 36px;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  border-radius: 4px;
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
+  padding: 0 15px;
 }

@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Layout, Menu, PageHeader } from "antd";
+import { Layout, Menu, PageHeader, Col, Row } from "antd";
 import Helmet from "react-helmet";
 import "./AppLayout.css";
 import { appRoutes } from "../../router";
 import getLang from "../../lib/getLang";
 import { Link } from "react-router-dom";
 import setting from "../../settings/setting";
+import SelectLang from "../../components/SelectLang";
+import { UserProfile, Notification } from "../../components/UI";
+// import { LogoText } from "../../components/UI";
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,6 +28,7 @@ type AppLayoutProps = {
   showPageHeader: boolean;
   pageHeader: React.ReactNode;
   renderPageHeader: React.ReactNode;
+  changeLanguage?: (languageId: string) => void;
 };
 
 const AppLayout: React.SFC<AppLayoutProps> = ({
@@ -35,7 +39,8 @@ const AppLayout: React.SFC<AppLayoutProps> = ({
   //   breadcrumbs,
   showPageHeader,
   pageHeader,
-  renderPageHeader
+  renderPageHeader,
+  changeLanguage
 }) => {
   //   const currentRoute = appRoutes.find(
   //     appRoute => appRoute.path === location.pathname
@@ -75,29 +80,55 @@ const AppLayout: React.SFC<AppLayoutProps> = ({
 
       <Layout className="layout">
         <Header className="header">
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["/dashboard"]}
-            selectedKeys={[location.pathname]}
-          >
-            {appRoutes.map(data => {
-              if (location.pathname === data.path) {
-                return (
-                  <Menu.Item key={data.path}>
-                    {getLang({ id: data.name })}
-                  </Menu.Item>
-                );
-              } else {
-                return (
-                  <Menu.Item key={data.path}>
-                    <Link to={data.path}>{getLang({ id: data.name })}</Link>
-                  </Menu.Item>
-                );
-              }
-            })}
-          </Menu>
+          {/* <div className="logo" /> */}
+          {/* <LogoText style={{ float: "left" }}>MCFSystem</LogoText> */}
+          <Row type="flex" style={{ height: "100%" }}>
+            <Col xs={0} sm={0} md={0} lg={0} xl={12}>
+              <div className="menu-container-left">
+                <Menu
+                  theme="dark"
+                  mode="horizontal"
+                  defaultSelectedKeys={["/dashboard"]}
+                  selectedKeys={[location.pathname]}
+                >
+                  {appRoutes.map(data => {
+                    if (location.pathname === data.path) {
+                      return (
+                        <Menu.Item key={data.path}>
+                          {getLang({ id: data.name })}
+                        </Menu.Item>
+                      );
+                    } else {
+                      return (
+                        <Menu.Item key={data.path}>
+                          <Link to={data.path}>
+                            {getLang({ id: data.name })}
+                          </Link>
+                        </Menu.Item>
+                      );
+                    }
+                  })}
+                </Menu>
+              </div>
+            </Col>
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              xl={12}
+              className="menu-container-right"
+            >
+              <Notification />
+              <SelectLang
+                onClick={param =>
+                  changeLanguage ? changeLanguage(param.key) : param
+                }
+                mode="app"
+              />
+              <UserProfile />
+            </Col>
+          </Row>
         </Header>
         {showPageHeader ? (
           renderPageHeader ? (
@@ -108,11 +139,7 @@ const AppLayout: React.SFC<AppLayoutProps> = ({
         ) : (
           undefined
         )}
-        <Content style={{ padding: "0 30px" }}>
-          <div style={{ background: "#fff", padding: 24, margin: "16px 0" }}>
-            {children}
-          </div>
-        </Content>
+        <Content style={{ padding: "16px" }}>{children}</Content>
         <Footer style={{ textAlign: "center" }}>{setting.footer}</Footer>
       </Layout>
     </>
