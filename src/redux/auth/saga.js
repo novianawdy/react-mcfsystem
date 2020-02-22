@@ -35,6 +35,8 @@ export function* logoutRequest() {
   sessionStorage.clear();
   localStorage.setItem("language", language);
 
+  window.location.replace("/");
+
   yield put({
     type: action.LOGOUT_SUCCESS
   });

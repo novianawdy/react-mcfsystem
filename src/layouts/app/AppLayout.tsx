@@ -52,13 +52,6 @@ class AppLayout extends React.Component<AppLayoutProps> {
     visibleDrawerUser: false
   };
 
-  componentDidUpdate = (prevProps: AppLayoutProps) => {
-    const { bearer } = this.props.auth;
-    if (bearer !== prevProps.auth.bearer && prevProps.auth.bearer && !bearer) {
-      window.location.replace("/");
-    }
-  };
-
   handleDrawerMenu = () =>
     this.setState({ visibleDrawerMenu: !this.state.visibleDrawerMenu });
 
