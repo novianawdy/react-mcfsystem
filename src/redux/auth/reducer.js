@@ -5,6 +5,7 @@ import setting from "../../settings/setting";
 const initState = {
   language: localStorage.getItem("language") || setting.language,
   bearer: getLocal("at") || getSession("at"),
+  user: JSON.parse(localStorage.getItem("user")),
   loading: false,
   success: undefined,
   error: undefined
@@ -22,13 +23,38 @@ export default function authReducer(state = initState, dispatch) {
         ...state,
         loading: false,
         success: true,
-        bearer: dispatch.bearer
+        bearer: dispatch.bearer,
+        user: dispatch.user
       };
     case action.LOGIN_ERROR:
       return {
         ...state,
         loading: false,
         error: dispatch.error.message
+      };
+    case action.LOGOUT_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case action.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        bearer: null,
+        user: {}
+      };
+    case action.LOGOUT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: dispatch.error.message
+      };
+    case action.CHANGE_LANG:
+      return {
+        ...state,
+        language: dispatch.language
       };
     case action.CLEAR_SUCCESS:
       return {

@@ -9,5 +9,8 @@
   "or": "Or",
   "registerNow": "Register now!",
   "dashboard": "Dashboard",
-  "log": "Log"
+  "log": "Log",
+  "setting": "Setting",
+  "profile": "Profile",
+  "logout": "Logout"
 }

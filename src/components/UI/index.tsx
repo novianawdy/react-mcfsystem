@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Avatar } from "antd";
+import { Avatar, Row, Col } from "antd";
 import notifIcon from "../../assets/images/notification.svg";
+import themes from "../../settings/themes/themes";
 
 export interface LogoTextProps {
   children: React.ReactNode;
@@ -23,10 +24,27 @@ export class LogoText extends React.Component<LogoTextProps> {
   }
 }
 
-export class UserProfile extends React.Component {
+export interface UserProfileProps {
+  username?: string | React.ReactNode;
+  avatar: string;
+  onClick?: () => void;
+}
+export class UserProfile extends React.Component<UserProfileProps> {
   render() {
+    const { username, avatar, onClick } = this.props;
+    const UserWrapper = styled.div`
+      padding: 18px 10px;
+      display: initial;
+      border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #171622;
+      }
+    `;
+
     return (
-      <>
+      <UserWrapper onClick={onClick}>
         <span
           style={{
             padding: "0 .55rem 0 0",
@@ -45,20 +63,90 @@ export class UserProfile extends React.Component {
             color: "#fff"
           }}
         >
-          Sean
+          {username}
         </span>
         <Avatar
           shape="square"
           size="large"
           style={{
-            backgroundColor: "#2d1e5f",
+            backgroundColor: themes.themedefault.palette.secondary[1],
             color: "#fff",
-            fontSize: "1.6rem"
+            fontSize: "1.6rem",
+            textTransform: "capitalize"
           }}
         >
-          S
+          {avatar}
         </Avatar>
-      </>
+      </UserWrapper>
+    );
+  }
+}
+
+export interface UserTitleProps {
+  username?: string | React.ReactNode;
+  role?: string;
+  avatar: string;
+}
+export class UserTitle extends React.Component<UserTitleProps> {
+  render() {
+    const { username, avatar, role } = this.props;
+
+    return (
+      <div style={{ display: "flex" }}>
+        <div>
+          <Avatar
+            shape="square"
+            size="large"
+            style={{
+              backgroundColor: themes.themedefault.palette.secondary[1],
+              color: "#fff",
+              fontSize: "1.6rem",
+              textTransform: "capitalize",
+              marginRight: 10
+            }}
+          >
+            {avatar}
+          </Avatar>
+        </div>
+        <div>
+          <Row>
+            <Col span={24}>
+              <span
+                style={{
+                  padding: "0 .55rem 0 0",
+                  fontWeight: 400,
+                  fontSize: ".9rem",
+                  color: "#636177"
+                }}
+              >
+                Hi,
+              </span>
+              <span
+                style={{
+                  padding: "0 .55rem 0 0",
+                  fontWeight: 400,
+                  fontSize: ".9rem",
+                  color: "#2e2e2e"
+                }}
+              >
+                {username}
+              </span>
+            </Col>
+            <Col span={24}>
+              <span
+                style={{
+                  padding: "0 .55rem 0 0",
+                  fontWeight: 400,
+                  fontSize: ".9rem",
+                  color: "#636177"
+                }}
+              >
+                {role}
+              </span>
+            </Col>
+          </Row>
+        </div>
+      </div>
     );
   }
 }

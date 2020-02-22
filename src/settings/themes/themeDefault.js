@@ -2,7 +2,7 @@ const theme = {};
 
 theme.palette = {
   primary: [
-    "#4482FF", // 0: Default
+    "#374afb", // 0: Default
     "#3A78F5", // 1: Darken 4%
     "#3775F2", // 2: Darken 5%
     "rgba(68, 130, 255, 0.2)", // 3: Fade 20%
@@ -18,17 +18,18 @@ theme.palette = {
     "#4d88ff" // 13: Lighten 5%
   ],
   secondary: [
-    "#2d3446", // 0: DarkBlue
-    "#f1f3f6", // 1: LightBluish
-    "#788195", // 2: LightBlue
-    "#E4E6E9", // 3: LightBluish Darken 5%
-    "#364d79", // 4:
-    "#202739", // 5: DarkBlue Darken 5%
-    "#f5f6f8", // 6: LighterBluish
-    "#e9ebf1", // 7: DarkBluish
-    "#F6F8FB", // 8: LighterBluish Lighten 2%
-    "#E9EBEE", // 9: LighterBluish Darken 3%
-    "#1a1a1a" // 10: Sidebar submenu select
+    "#1E1D2E", // 0: DarkBlue
+    "#2d1e5f", // 1: Lighten 5%
+    "#f1f3f6", // 2: LightBluish
+    "#788195", // 3: LightBlue
+    "#E4E6E9", // 4: LightBluish Darken 5%
+    "#364d79", // 5:
+    "#202739", // 6: DarkBlue Darken 5%
+    "#f5f6f8", // 7: LighterBluish
+    "#e9ebf1", // 8: DarkBluish
+    "#F6F8FB", // 9: LighterBluish Lighten 2%
+    "#E9EBEE", // 10: LighterBluish Darken 3%
+    "#1a1a1a" // 11: Sidebar submenu select
   ],
   color: [
     "#FEAC01", // 0: Orange
