@@ -113,6 +113,15 @@ export const makeId = length => {
 
 /**
  *
+ * @param {number} min
+ * @param {number} max
+ */
+export const randomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+/**
+ *
  * @param {string} string string yang akan diencrypt
  * @returns {string} string yang sudah diencrypt
  */

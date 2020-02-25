@@ -29,7 +29,7 @@ export interface UserProfileProps {
   avatar: string;
   onClick?: () => void;
 }
-export class UserProfile extends React.Component<UserProfileProps> {
+export class UserProfile extends React.PureComponent<UserProfileProps> {
   render() {
     const { username, avatar, onClick } = this.props;
     const UserWrapper = styled.div`

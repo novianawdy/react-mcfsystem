@@ -145,7 +145,7 @@ class AppLayout extends React.Component<AppLayoutProps> {
                   </Menu>
                 </div>
               </Col>
-              <Col xs={8} sm={8} md={0} lg={0} xl={0}>
+              <Col xs={4} sm={4} md={0} lg={0} xl={0}>
                 <div className="menu-container-left">
                   <Button
                     icon="menu-unfold"
@@ -192,8 +192,8 @@ class AppLayout extends React.Component<AppLayoutProps> {
                 </div>
               </Col>
               <Col
-                xs={16}
-                sm={16}
+                xs={20}
+                sm={20}
                 md={12}
                 lg={12}
                 xl={12}

@@ -69,6 +69,11 @@ export const appRoutes = [
     path: "/logs",
     name: "log",
     component: asyncComponent(() => import("./containers/Log/Log"))
+  },
+  {
+    path: "/settings",
+    name: "setting",
+    component: asyncComponent(() => import("./containers/Setting/Setting"))
   }
 ];
 
