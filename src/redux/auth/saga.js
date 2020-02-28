@@ -1,30 +1,48 @@
-import { all, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 import action from "./action";
-import { saveLocal, makeId, saveSession } from "../../lib/helper";
+import { saveLocal, saveSession, apiPost } from "../../lib/helper";
+import getLang from "../../lib/getLang";
 
 export function* loginRequest({ payload }) {
   const { body } = payload;
-  const bearer = makeId(50);
 
-  const user = {
-    username: body.username
-  };
+  const response = yield call(apiPost, "login", body);
 
-  // saving user data to localStorage
-  localStorage.setItem("user", JSON.stringify(user));
+  try {
+    if (response && response.status === "success") {
+      const { token, user } = response.result;
+      // saving user data to localStorage
+      localStorage.setItem("user", JSON.stringify(user));
 
-  // saving bearer
-  if (body.remember) {
-    saveLocal("at", bearer);
-  } else {
-    saveSession("at", bearer);
+      // saving bearer
+      if (body.remember) {
+        saveLocal("at", token);
+      } else {
+        saveSession("at", token);
+      }
+
+      yield put({
+        type: action.LOGIN_SUCCESS,
+        bearer: token,
+        user
+      });
+    } else if (response && response.status === "fail") {
+      yield put({
+        type: action.LOGIN_ERROR,
+        error: response
+      });
+    } else {
+      yield put({
+        type: action.LOGIN_ERROR,
+        error: { message: getLang({ id: "checkInternet" }) }
+      });
+    }
+  } catch (e) {
+    yield put({
+      type: action.LOGIN_ERROR,
+      error: { message: getLang({ id: "checkInternet" }) }
+    });
   }
-
-  yield put({
-    type: action.LOGIN_SUCCESS,
-    bearer,
-    user
-  });
 }
 
 export function* logoutRequest() {

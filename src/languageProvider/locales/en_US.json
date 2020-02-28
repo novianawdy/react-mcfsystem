@@ -1,6 +1,8 @@
 {
   "username": "Username",
-  "username.required": "Please input your username!",
+  "username.required": "Please input your Username!",
+  "email": "Email",
+  "email.required": "Please input your Email!",
   "password": "Password",
   "password.required": "Please input your Password!",
   "rememberMe": "Remember me",
@@ -8,9 +10,20 @@
   "login": "Login",
   "or": "Or",
   "registerNow": "Register now!",
+
   "dashboard": "Dashboard",
+  "flow": "Flow",
+  "temperature": "Temperature",
+  "solenoid": "Solenoid",
+
   "log": "Log",
+
   "setting": "Setting",
+
   "profile": "Profile",
-  "logout": "Logout"
+
+  "logout": "Logout",
+  "checkInternet": "Check your internet connection",
+  "caution": "Caution",
+  "language": "Language"
 }

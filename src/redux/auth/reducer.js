@@ -4,7 +4,7 @@ import setting from "../../settings/setting";
 
 const initState = {
   language: localStorage.getItem("language") || setting.language,
-  bearer: getLocal("at") || getSession("at"),
+  bearer: getLocal("at") ? getLocal("at") : getSession("at"),
   user: JSON.parse(localStorage.getItem("user")),
   loading: false,
   success: undefined,

@@ -16,7 +16,7 @@ const currentAppLocale =
       .locale
   ];
 
-const DashApp = () => (
+const DashApp = props => (
   <ConfigProvider locale={currentAppLocale.antd}>
     <IntlProvider
       locale={currentAppLocale.locale}

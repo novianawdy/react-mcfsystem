@@ -2,8 +2,8 @@
   min-height: 100vh;
 }
 .header {
-  height: 110px;
-  padding: 0 30px;
+  height: 80px;
+  padding: 0 16px;
 }
 .logo {
   width: 120px;

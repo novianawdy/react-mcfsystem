@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 
 import asyncComponent from "./lib/asyncComponent";
 import { getLocal, getSession } from "./lib/helper";
+import { Result, Button } from "antd";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
   const bearer = getLocal("at") || getSession("at");
@@ -22,7 +23,7 @@ const OpenRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        !bearer ? <Component {...props} /> : <Redirect to="/dashboard" />
+        !bearer ? <Component {...props} /> : <Redirect to="/app/dashboard" />
       }
     />
   );
@@ -40,15 +41,30 @@ const Routes = ({ history }) => (
         )}
       />
 
-      {appRoutes.map((data, key) => (
-        <RestrictedRoute
-          key={key}
-          exact
-          history={history}
-          path={data.path}
-          component={data.component}
-        />
-      ))}
+      {/* {appRoutes.map((data, key) => ( */}
+      <RestrictedRoute
+        history={history}
+        path={"/app"}
+        component={asyncComponent(() => import("./containers/App/App"))}
+      />
+      {/* ))} */}
+
+      <Route
+        path="*"
+        render={props => (
+          <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, the page you visited does not exist."
+            extra={
+              <Link to="/app/dashboard">
+                <Button type="primary">Back Home</Button>
+              </Link>
+            }
+            {...props}
+          />
+        )}
+      />
     </Switch>
   </BrowserRouter>
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Row, Col, Form, Input, Icon, Checkbox, Button } from "antd";
+import { Row, Col, Form, Input, Icon, Checkbox, Button, Modal } from "antd";
 import getLang from "../../../lib/getLang";
 
 import UserLayout from "../../../layouts/user/UserLayout";
@@ -15,11 +15,16 @@ class SignInForm extends React.Component {
     const { success, error } = this.props.auth;
     const { clearSuccess, clearError } = this.props;
     if (success === true) {
-      this.props.history.push("/dashboard");
+      this.props.history.replace("/app/dashboard");
       clearSuccess();
     }
 
     if (error) {
+      Modal.error({
+        title: getLang({ id: "caution" }),
+        content: error,
+        okText: "OK"
+      });
       clearError();
     }
   };
@@ -36,6 +41,7 @@ class SignInForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { loading } = this.props.auth;
     return (
       <UserLayout title="Sign In">
         <Row type="flex" justify="center">
@@ -68,7 +74,7 @@ class SignInForm extends React.Component {
                     }
                   ]
                 })(
-                  <Input
+                  <Input.Password
                     prefix={
                       <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
@@ -97,6 +103,7 @@ class SignInForm extends React.Component {
                       htmlType="submit"
                       className="login-form-button"
                       block={true}
+                      loading={loading}
                     >
                       {getLang({ id: "login" })}
                     </Button>

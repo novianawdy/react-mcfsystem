@@ -2,8 +2,10 @@ const {
   override,
   fixBabelImports,
   addLessLoader,
+  addWebpackPlugin,
   addWebpackModuleRule
 } = require("customize-cra");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = override(
   fixBabelImports("import", {
@@ -19,4 +21,11 @@ module.exports = override(
       "@font-family": "Poppins,Helvetica,sans-serif"
     }
   })
+
+  /** Enable ketika ingin build  */
+  // addWebpackPlugin(new MiniCssExtractPlugin()),
+  // addWebpackModuleRule({
+  //   test: /\.css$/i,
+  //   use: [MiniCssExtractPlugin.loader, "css-loader"]
+  // })
 );

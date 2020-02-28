@@ -10,7 +10,10 @@ import { getCurrentLanguage } from "../../settings/language";
 import { store, history } from "../../redux/store";
 import themes from "../../settings/themes/themes";
 import setting, { themeConfig } from "../../settings/setting";
-import Routes from "../../router";
+import { appRoutes } from "../../router";
+import AppLayout from "../../layouts/app/AppLayout";
+import { Switch, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 class App extends Component {
   state = {};
@@ -20,6 +23,10 @@ class App extends Component {
         getCurrentLanguage(store.getState().auth.language || setting.language)
           .locale
       ];
+
+    const { location, auth } = this.props;
+    const { url } = this.props.match;
+
     return (
       <ConfigProvider locale={currentAppLocale.antd}>
         <IntlProvider
@@ -28,7 +35,26 @@ class App extends Component {
         >
           <ThemeProvider theme={themes[themeConfig.theme]}>
             <Provider store={store}>
-              <Routes history={history} />
+              <BrowserRouter>
+                <AppLayout
+                  title="MCFSystem"
+                  location={location}
+                  auth={auth}
+                  onClickMenu={pathname => (location.pathname = pathname)}
+                >
+                  <Switch>
+                    {appRoutes.map((data, key) => (
+                      <Route
+                        exact
+                        key={key}
+                        history={history}
+                        path={`${url}${data.path}`}
+                        component={data.component}
+                      />
+                    ))}
+                  </Switch>
+                </AppLayout>
+              </BrowserRouter>
             </Provider>
           </ThemeProvider>
         </IntlProvider>

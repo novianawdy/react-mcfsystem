@@ -1,21 +1,22 @@
 import * as React from "react";
-import { Dropdown, Menu, Icon, Avatar } from "antd";
+import { Dropdown, Menu, Icon, Avatar, Button, Typography } from "antd";
 import { getCurrentLanguage } from "../../settings/language";
 import { store } from "../../redux/store";
 import setting from "../../settings/setting";
 import ukFlag from "../../assets/images/uk-flag.svg";
 import styled from "styled-components";
+import getLang from "../../lib/getLang";
 
 type ClickParam = {
   key: string;
-  keyPath: Array<string>;
-  item: any;
-  domEvent: Event;
+  keyPath?: Array<string>;
+  item?: any;
+  domEvent?: Event;
 };
 
 interface SelectLangProps {
   onClick: (param: ClickParam) => void;
-  mode?: "pages" | "app";
+  mode?: "pages" | "app" | "button";
 }
 interface SelectLangState {
   selectedLang?: string;
@@ -71,17 +72,71 @@ class SelectLang extends React.Component<SelectLangProps, SelectLangState> {
         ))}
       </Menu>
     );
-    return (
-      <Dropdown placement="bottomRight" overlay={langMenu} trigger={["click"]}>
-        {mode === "pages" || !mode ? (
-          <Icon type="global" title="Bahasa" style={{ cursor: "pointer" }} />
-        ) : (
-          <AvaWrapper>
-            <Avatar src={ukFlag} size="small" shape="square" />
-          </AvaWrapper>
-        )}
-      </Dropdown>
-    );
+
+    let renderChild;
+    switch (mode) {
+      case "pages":
+        renderChild = (
+          <Dropdown
+            placement="bottomRight"
+            overlay={langMenu}
+            trigger={["click"]}
+          >
+            <Icon type="global" title="Bahasa" style={{ cursor: "pointer" }} />
+          </Dropdown>
+        );
+        break;
+      case "app":
+        renderChild = (
+          <Dropdown
+            placement="bottomRight"
+            overlay={langMenu}
+            trigger={["click"]}
+          >
+            <AvaWrapper>
+              <Avatar src={ukFlag} size="small" shape="square" />
+            </AvaWrapper>
+          </Dropdown>
+        );
+        break;
+      case "button":
+        renderChild = (
+          <>
+            <div style={{ marginBottom: 10 }}>
+              <Typography.Text>{getLang({ id: "language" })}</Typography.Text>
+            </div>
+            <div style={{ display: "flex" }}>
+              {locales.map(locale => (
+                <ButtonWrapper key={locale}>
+                  <Button
+                    disabled={selectedLang === locale}
+                    onClick={() => {
+                      this.setState({ selectedLang: locale });
+                      localStorage.setItem("language", locale);
+                      return onClick ? onClick({ key: locale }) : locale;
+                    }}
+                  >
+                    {locale}
+                  </Button>
+                </ButtonWrapper>
+              ))}
+            </div>
+          </>
+        );
+        break;
+      default:
+        renderChild = (
+          <Dropdown
+            placement="bottomRight"
+            overlay={langMenu}
+            trigger={["click"]}
+          >
+            <Icon type="global" title="Bahasa" style={{ cursor: "pointer" }} />
+          </Dropdown>
+        );
+        break;
+    }
+    return renderChild;
   }
 }
 
@@ -95,6 +150,10 @@ const AvaWrapper = styled.div`
   &:hover {
     background-color: #171622;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  margin-right: 10px;
 `;
 
 export default SelectLang;

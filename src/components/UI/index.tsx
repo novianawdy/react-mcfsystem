@@ -33,14 +33,10 @@ export class UserProfile extends React.PureComponent<UserProfileProps> {
   render() {
     const { username, avatar, onClick } = this.props;
     const UserWrapper = styled.div`
-      padding: 18px 10px;
+      padding: 18px 0px 18px 5px;
       display: initial;
       border-radius: 10px;
       cursor: pointer;
-
-      &:hover {
-        background-color: #171622;
-      }
     `;
 
     return (
@@ -151,8 +147,13 @@ export class UserTitle extends React.Component<UserTitleProps> {
   }
 }
 
-export class Notification extends React.Component {
+type NotificationProps = {
+  onClick?: () => void;
+};
+
+export class Notification extends React.Component<NotificationProps> {
   render() {
+    const { onClick } = this.props;
     const Pulse = styled.span`
       -webkit-text-size-adjust: 100%;
       -webkit-tap-highlight-color: transparent;
@@ -221,6 +222,7 @@ export class Notification extends React.Component {
     return (
       <div
         style={{ display: "initial", position: "relative", cursor: "pointer" }}
+        onClick={onClick}
       >
         <Avatar src={notifIcon} size="small" /> <Pulse />
       </div>

@@ -1,6 +1,8 @@
 {
   "username": "Username",
   "username.required": "Harap masukkan Username Anda!",
+  "email": "Email",
+  "email.required": "Harap masukkan Email Anda!",
   "password": "Password",
   "password.required": "Harap masukkan Password Anda!",
   "rememberMe": "Ingat saya",
@@ -8,9 +10,20 @@
   "login": "Masuk",
   "or": "Atau",
   "registerNow": "Daftar sekarang!",
+
   "dashboard": "Beranda",
+  "flow": "Aliran",
+  "temperature": "Suhu",
+  "solenoid": "Solenoid",
+
   "log": "Log",
+
   "setting": "Pengaturan",
+
   "profile": "Profil",
-  "logout": "Keluar"
+
+  "logout": "Keluar",
+  "checkInternet": "Cek koneksi internet Anda",
+  "caution": "Peringatan",
+  "language": "Bahasa"
 }

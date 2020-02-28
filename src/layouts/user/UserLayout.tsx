@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.svg";
+// import logo from "../../assets/images/logo.svg";
 import "./UserLayout.css";
 import SelectLang from "../../components/SelectLang";
 import action from "../../redux/dashApp/action";
@@ -39,7 +39,7 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
           <div className="top">
             <div className="header">
               <Link to="/" style={{ textDecoration: "none" }}>
-                <img alt="logo" className="logo" src={logo} />
+                {/* <img alt="logo" className="logo" src={logo} /> */}
                 <span className="title">{setting.appName}</span>
               </Link>
             </div>

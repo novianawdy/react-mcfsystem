@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AppLayout from "../../layouts/app/AppLayout";
 // import getLang from "../../lib/getLang";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -8,6 +7,7 @@ import { randomInt } from "../../lib/helper";
 import moment from "moment";
 
 import Chart from "./Chart";
+import getLang from "../../lib/getLang";
 
 class Dashboard extends Component {
   state = {
@@ -15,7 +15,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount = () => {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       const { data } = this.state;
       const modifier = randomInt(0, 3);
       let flow, temperature;
@@ -57,8 +57,12 @@ class Dashboard extends Component {
       this.setState({ data: modifiedData });
     }, 1000);
   };
+
+  componentWillUnmount = () => {
+    window.clearInterval(this.interval);
+  };
+
   render() {
-    const { location, auth } = this.props;
     const { data } = this.state;
 
     let flowColor = "#3f8600";
@@ -88,12 +92,12 @@ class Dashboard extends Component {
     }
 
     return (
-      <AppLayout title="Dashboard" location={location} auth={auth}>
-        <Row type="flex" justify="space-between" style={{ marginBottom: 24 }}>
+      <>
+        <Row type="flex" justify="space-between" style={{ marginBottom: 16 }}>
           <Col xs={24} sm={8} md={8} lg={8} xl={8}>
             <Card>
               <Statistic
-                title="Flow"
+                title={getLang({ id: "flow" })}
                 value={length ? data[length - 1].flow : 0}
                 precision={2}
                 valueStyle={{ color: flowColor }}
@@ -105,7 +109,7 @@ class Dashboard extends Component {
           <Col xs={24} sm={8} md={8} lg={8} xl={8}>
             <Card>
               <Statistic
-                title="Temperature"
+                title={getLang({ id: "temperature" })}
                 value={length ? data[length - 1].temperature : 0}
                 precision={2}
                 valueStyle={{ color: temperatureColor }}
@@ -117,11 +121,9 @@ class Dashboard extends Component {
           <Col xs={24} sm={8} md={8} lg={8} xl={8}>
             <Card>
               <Statistic
-                title="Solenoid"
+                title={getLang({ id: "solenoid" })}
                 value={solenoid}
-                precision={2}
                 valueStyle={{ color: solenoidColor }}
-                // prefix={<Icon type="arrow-up" />}
               />
             </Card>
           </Col>
@@ -134,7 +136,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-      </AppLayout>
+      </>
     );
   }
 }

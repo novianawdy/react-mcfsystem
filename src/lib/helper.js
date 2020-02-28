@@ -3,8 +3,13 @@ import setting from "../settings/setting";
 
 export const baseUrl = () => setting.baseUrl;
 
-export const auth = () => localStorage.getItem("bearer");
+export const auth = () => getLocal("at") || getSession("at");
 
+/**
+ *
+ * @param {string} url
+ * @param {Boolean} isFullUrl
+ */
 export const apiGet = async (url, isFullUrl = false) => {
   return await Axios({
     method: "GET",
@@ -12,14 +17,28 @@ export const apiGet = async (url, isFullUrl = false) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: auth()
+      Authorization: `Bearer ${auth()}`
     },
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
+/**
+ *
+ * @param {string} url
+ * @param {Boolean} isFullUrl
+ */
 export const apiGetNoAuth = async (url, isFullUrl = false) => {
   return await Axios({
     method: "GET",
@@ -31,9 +50,24 @@ export const apiGetNoAuth = async (url, isFullUrl = false) => {
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
+/**
+ *
+ * @param {string} url
+ * @param {JSON} post
+ * @param {Boolean} isFullUrl
+ */
 export const apiPost = async (url, post, isFullUrl = false) => {
   return await Axios({
     method: "POST",
@@ -42,14 +76,29 @@ export const apiPost = async (url, post, isFullUrl = false) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: auth()
+      Authorization: `Bearer ${auth()}`
     },
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
+/**
+ *
+ * @param {string} url
+ * @param {JSON} post
+ * @param {Boolean} isFullUrl
+ */
 export const apiPostNoAuth = async (url, post, isFullUrl = false) => {
   return await Axios({
     method: "POST",
@@ -62,9 +111,24 @@ export const apiPostNoAuth = async (url, post, isFullUrl = false) => {
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
+/**
+ *
+ * @param {string} url
+ * @param {JSON} post
+ * @param {Boolean} isFullUrl
+ */
 export const apiPut = async (url, post, isFullUrl = false) => {
   return await Axios({
     method: "PUT",
@@ -73,14 +137,29 @@ export const apiPut = async (url, post, isFullUrl = false) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: auth()
+      Authorization: `Bearer ${auth()}`
     },
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
+/**
+ *
+ * @param {string} url
+ * @param {JSON} post
+ * @param {Boolean} isFullUrl
+ */
 export const apiPutNoAuth = async (url, post, isFullUrl = false) => {
   return await Axios({
     method: "PUT",
@@ -93,7 +172,16 @@ export const apiPutNoAuth = async (url, post, isFullUrl = false) => {
     timeout: 0
   })
     .then(res => res.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+
+      const { response } = error;
+      if (response) {
+        return response.data;
+      } else {
+        return;
+      }
+    });
 };
 
 /**

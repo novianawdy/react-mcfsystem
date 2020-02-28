@@ -42,9 +42,10 @@
 .header {
   height: 44px;
   line-height: 44px;
-  a {
-    text-decoration: none;
-  }
+}
+
+.header a {
+  text-decoration: none;
 }
 
 .logo {

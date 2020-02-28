@@ -1,5 +1,14 @@
 import * as React from "react";
-import { Layout, Menu, PageHeader, Col, Row, Button, Drawer } from "antd";
+import {
+  Layout,
+  Menu,
+  PageHeader,
+  Col,
+  Row,
+  Button,
+  Drawer,
+  Popover
+} from "antd";
 import Helmet from "react-helmet";
 import "./AppLayout.css";
 import { appRoutes } from "../../router";
@@ -14,6 +23,7 @@ import action from "../../redux/auth/action";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import themes from "../../settings/themes/themes";
+import styled from "styled-components";
 
 const { Header, Content, Footer } = Layout;
 const { changeLanguage, logoutRequest } = action;
@@ -27,7 +37,10 @@ type LocationProps = {
 };
 export interface AuthInterface {
   user: {
+    id: number;
+    name: string;
     username: string;
+    role: number;
   };
   language: string;
   bearer: string;
@@ -43,13 +56,16 @@ type AppLayoutProps = {
   renderPageHeader: React.ReactNode;
   changeLanguage?: (languageId: string) => void;
   logoutRequest?: () => void;
+  onClickMenu?: (pathname: string) => void;
   auth: AuthInterface;
 };
 
 class AppLayout extends React.Component<AppLayoutProps> {
   state = {
     visibleDrawerMenu: false,
-    visibleDrawerUser: false
+    visibleDrawerUser: false,
+    visibleNotification: false,
+    activeMenu: this.props.location.pathname
   };
 
   handleDrawerMenu = () =>
@@ -58,13 +74,17 @@ class AppLayout extends React.Component<AppLayoutProps> {
   handleDrawerUser = () =>
     this.setState({ visibleDrawerUser: !this.state.visibleDrawerUser });
 
+  handleNotification = () =>
+    this.setState({ visibleNotification: !this.state.visibleNotification });
+
   render() {
     const {
       title,
       description,
       children,
-      location,
-      //   breadcrumbs,
+      onClickMenu,
+      // location,
+      // breadcrumbs,
       showPageHeader,
       pageHeader,
       renderPageHeader,
@@ -72,35 +92,24 @@ class AppLayout extends React.Component<AppLayoutProps> {
       logoutRequest,
       auth
     } = this.props;
+    const { activeMenu } = this.state;
     const { user } = auth;
-    //   const currentRoute = appRoutes.find(
-    //     appRoute => appRoute.path === location.pathname
-    //   );
+    let role = "Admin";
 
-    //   const breadcrumb = breadcrumbs ? (
-    //     <Breadcrumb style={{ margin: "16px 0px 0px 0px" }}>
-    //       {currentRoute?.breadcrumbs.map((breadcrumb, key) => {
-    //         if (
-    //           (breadcrumb.path && breadcrumb.path === location.pathname) ||
-    //           !breadcrumb.path
-    //         ) {
-    //           return (
-    //             <Breadcrumb.Item key={key}>
-    //               {getLang({ id: breadcrumb.name })}
-    //             </Breadcrumb.Item>
-    //           );
-    //         } else {
-    //           return (
-    //             <Link to={breadcrumb.path} key={key}>
-    //               <Breadcrumb.Item>
-    //                 {getLang({ id: breadcrumb.name })}
-    //               </Breadcrumb.Item>
-    //             </Link>
-    //           );
-    //         }
-    //       })}
-    //     </Breadcrumb>
-    //   ) : undefined
+    switch (user.role) {
+      case 1:
+        role = "Super Admin";
+        break;
+      case 2:
+        role = "Admin";
+        break;
+      case 3:
+        role = "IOT";
+        break;
+      default:
+        role = "Admin";
+        break;
+    }
 
     return (
       <>
@@ -122,20 +131,28 @@ class AppLayout extends React.Component<AppLayoutProps> {
                   <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={["/dashboard"]}
-                    selectedKeys={[location.pathname]}
+                    defaultSelectedKeys={["/app/dashboard"]}
+                    selectedKeys={[activeMenu]}
                   >
                     {appRoutes.map(data => {
-                      if (location.pathname === data.path) {
+                      if (activeMenu === `/app${data.path}`) {
                         return (
-                          <Menu.Item key={data.path}>
+                          <Menu.Item key={`/app${data.path}`}>
                             {getLang({ id: data.name })}
                           </Menu.Item>
                         );
                       } else {
                         return (
-                          <Menu.Item key={data.path}>
-                            <Link to={data.path}>
+                          <Menu.Item
+                            key={`/app${data.path}`}
+                            onClick={() => {
+                              if (onClickMenu) {
+                                onClickMenu(`/app${data.path}`);
+                              }
+                              this.setState({ activeMenu: `/app${data.path}` });
+                            }}
+                          >
+                            <Link to={`/app${data.path}`}>
                               {getLang({ id: data.name })}
                             </Link>
                           </Menu.Item>
@@ -167,20 +184,30 @@ class AppLayout extends React.Component<AppLayoutProps> {
                     <Menu
                       mode="vertical"
                       defaultSelectedKeys={["/dashboard"]}
-                      selectedKeys={[location.pathname]}
+                      selectedKeys={[activeMenu]}
                       style={{ border: "none" }}
                     >
                       {appRoutes.map(data => {
-                        if (location.pathname === data.path) {
+                        if (activeMenu === `/app${data.path}`) {
                           return (
-                            <Menu.Item key={data.path}>
+                            <Menu.Item key={`/app${data.path}`}>
                               {getLang({ id: data.name })}
                             </Menu.Item>
                           );
                         } else {
                           return (
-                            <Menu.Item key={data.path}>
-                              <Link to={data.path}>
+                            <Menu.Item
+                              key={`/app${data.path}`}
+                              onClick={() => {
+                                if (onClickMenu) {
+                                  onClickMenu(`/app${data.path}`);
+                                }
+                                this.setState({
+                                  activeMenu: `/app${data.path}`
+                                });
+                              }}
+                            >
+                              <Link to={`/app${data.path}`}>
                                 {getLang({ id: data.name })}
                               </Link>
                             </Menu.Item>
@@ -199,13 +226,15 @@ class AppLayout extends React.Component<AppLayoutProps> {
                 xl={12}
                 className="menu-container-right"
               >
-                <Notification />
-                <SelectLang
-                  onClick={param =>
-                    changeLanguage ? changeLanguage(param.key) : param
-                  }
-                  mode="app"
-                />
+                <Popover
+                  placement="bottom"
+                  trigger="click"
+                  content={NotificationContent}
+                  visible={this.state.visibleNotification}
+                  onVisibleChange={this.handleNotification}
+                >
+                  <Notification onClick={this.handleNotification} />
+                </Popover>
                 <UserProfile
                   username={user.username}
                   avatar={user.username ? user.username.charAt(0) : ""}
@@ -216,27 +245,27 @@ class AppLayout extends React.Component<AppLayoutProps> {
                     <UserTitle
                       username={user.username}
                       avatar={user.username ? user.username.charAt(0) : ""}
-                      role="Admin"
+                      role={role}
                     />
                   }
                   visible={this.state.visibleDrawerUser}
                   onClose={this.handleDrawerUser}
                   placement="right"
                 >
+                  <SelectLang
+                    onClick={param =>
+                      changeLanguage ? changeLanguage(param.key) : param
+                    }
+                    mode="button"
+                  />
                   <Menu
                     mode="vertical"
                     defaultSelectedKeys={["/dashboard"]}
-                    selectedKeys={[location.pathname]}
+                    selectedKeys={[activeMenu]}
                     style={{ border: "none" }}
                   >
-                    <Menu.Item style={{ lineHeight: "20px", height: 20 }}>
-                      {getLang({ id: "setting" })}
-                    </Menu.Item>
-                    <Menu.Item style={{ lineHeight: "20px", height: 20 }}>
-                      {getLang({ id: "profile" })}
-                    </Menu.Item>
-                    <Menu.Divider style={{ marginTop: 15 }} />
-                    <Menu.Item onClick={logoutRequest}>
+                    <Menu.Divider style={{ marginTop: 20 }} />
+                    <Menu.Item onClick={logoutRequest} style={{ padding: 0 }}>
                       {getLang({ id: "logout" })}
                     </Menu.Item>
                   </Menu>
@@ -265,5 +294,19 @@ const mapDispatchToProps = {
   changeLanguage,
   logoutRequest
 };
+
+const NotificationWrapper = styled.div`
+  width: 350px;
+  max-width: ${(70 / 100) * window.innerWidth}px;
+`;
+const NotificationTitle = styled.div`
+  height: 64px;
+`;
+
+const NotificationContent = (
+  <NotificationWrapper>
+    <NotificationTitle>Notification</NotificationTitle>
+  </NotificationWrapper>
+);
 
 export default compose(connect(null, mapDispatchToProps))(AppLayout);
