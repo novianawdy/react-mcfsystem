@@ -92,7 +92,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <>
+      <div style={{ padding: 16 }}>
         <Row type="flex" justify="space-between" style={{ marginBottom: 16 }}>
           <Col xs={24} sm={8} md={8} lg={8} xl={8}>
             <Card>
@@ -136,7 +136,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 }

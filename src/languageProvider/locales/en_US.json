@@ -12,11 +12,21 @@
   "registerNow": "Register now!",
 
   "dashboard": "Dashboard",
+  "notification": "Notification",
   "flow": "Flow",
   "temperature": "Temperature",
   "solenoid": "Solenoid",
 
   "log": "Log",
+  "log.subtitle": "Display {total} data",
+  "all": "All",
+  "date": "Date",
+  "reload": "Reload",
+  "filter": "Filter",
+  "search": "Search",
+  "searchBy": "Search By",
+  "operator": "Operator",
+  "deleteFilter": "Delete Filter",
 
   "setting": "Setting",
 

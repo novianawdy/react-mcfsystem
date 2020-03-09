@@ -282,7 +282,7 @@ class AppLayout extends React.Component<AppLayoutProps> {
           ) : (
             undefined
           )}
-          <Content style={{ padding: "16px" }}>{children}</Content>
+          <Content>{children}</Content>
           <Footer style={{ textAlign: "center" }}>{setting.footer}</Footer>
         </Layout>
       </>

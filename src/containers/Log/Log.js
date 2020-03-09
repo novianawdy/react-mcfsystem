@@ -1,21 +1,125 @@
 import React, { Component } from "react";
-import getLang from "../../lib/getLang";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { Row, Col, Typography, Divider } from "antd";
+
+import action from "../../redux/log/action";
+import { IconButton } from "../../components/UI";
+import getLang from "../../lib/getLang";
+
+import LogList from "./LogList";
+import Filter from "./Filter";
+
+const { Title } = Typography;
+const { getLogRequest, clearError } = action;
 
 class Log extends Component {
-  state = {};
+  state = {
+    visibleFilter: false
+  };
+
+  componentDidMount = () => {
+    const { filter } = this.props.log;
+    const { getLogRequest } = this.props;
+    if (!filter) {
+      getLogRequest(1, null);
+    }
+  };
+
+  loadedRowsMap = {};
+
+  setLoadedRows = i => {
+    this.loadedRowsMap[i] = 1;
+  };
+
+  resetLoadedRows = () => {
+    this.loadedRowsMap = {};
+  };
+
+  handleFilterModal = () => {
+    const { visibleFilter } = this.state;
+    this.setState({ visibleFilter: !visibleFilter });
+  };
+
   render() {
+    const { visibleFilter } = this.state;
+    const { total } = this.props.log;
+    const { getLogRequest } = this.props;
+
     return (
-      <div style={{ background: "#fff", padding: 24, margin: "16px 0" }}>
-        <h1>{getLang({ id: "log" })}</h1>
-      </div>
+      <>
+        <Filter
+          visible={visibleFilter}
+          handleModal={this.handleFilterModal}
+          resetLoadedRows={this.resetLoadedRows}
+        />
+
+        <Row
+          type="flex"
+          justify="space-between"
+          style={{ padding: "16px 16px 0 16px", margin: "5px 0" }}
+        >
+          <Col
+            style={{
+              marginBottom: "0.5rem",
+              display: "flex",
+              alignItems: "center"
+            }}
+          >
+            <Title level={4} style={{ marginBottom: 0 }}>
+              {getLang({ id: "log" })}
+            </Title>
+            <Divider type="vertical" style={{ height: "100%" }} />
+            <span>{getLang({ id: "log.subtitle", values: { total } })}</span>
+          </Col>
+
+          <Col>
+            <IconButton
+              icon="filter"
+              style={{ marginLeft: 18 }}
+              onClick={() => this.setState({ visibleFilter: true })}
+              tooltip={{
+                title: getLang({ id: "filter" }),
+                placement: "bottom"
+              }}
+            />
+
+            <IconButton
+              icon="reload"
+              style={{ marginLeft: 18 }}
+              onClick={() => {
+                getLogRequest(1, null);
+                return this.resetLoadedRows();
+              }}
+              tooltip={{
+                title: getLang({ id: "reload" }),
+                placement: "bottomRight"
+              }}
+            />
+          </Col>
+        </Row>
+
+        <Row style={{ padding: "0 16px 0 16px", margin: "5px 0" }}>
+          <Col span={24}>
+            <LogList
+              loadedRowsMap={this.loadedRowsMap}
+              setLoadedRows={this.setLoadedRows}
+            />
+          </Col>
+        </Row>
+      </>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  log: state.log
 });
 
-export default compose(connect(mapStateToProps))(Log);
+const mapDispatchToProps = {
+  getLogRequest,
+  clearError
+};
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Log);

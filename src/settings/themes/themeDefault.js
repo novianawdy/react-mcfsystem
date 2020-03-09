@@ -20,16 +20,17 @@ theme.palette = {
   secondary: [
     "#1E1D2E", // 0: DarkBlue
     "#2d1e5f", // 1: Lighten 5%
-    "#f1f3f6", // 2: LightBluish
-    "#788195", // 3: LightBlue
-    "#E4E6E9", // 4: LightBluish Darken 5%
-    "#364d79", // 5:
-    "#202739", // 6: DarkBlue Darken 5%
-    "#f5f6f8", // 7: LighterBluish
-    "#e9ebf1", // 8: DarkBluish
-    "#F6F8FB", // 9: LighterBluish Lighten 2%
-    "#E9EBEE", // 10: LighterBluish Darken 3%
-    "#1a1a1a" // 11: Sidebar submenu select
+    "#2c2b3f", // 2: Lighten 10%,
+    "#f1f3f6", // 3: LightBluish
+    "#788195", // 4: LightBlue
+    "#E4E6E9", // 5: LightBluish Darken 5%
+    "#364d79", // 6:
+    "#202739", // 7: DarkBlue Darken 5%
+    "#f5f6f8", // 8: LighterBluish
+    "#e9ebf1", // 9: DarkBluish
+    "#F6F8FB", // 10: LighterBluish Lighten 2%
+    "#E9EBEE", // 11: LighterBluish Darken 3%
+    "#1a1a1a" // 12: Sidebar submenu select
   ],
   color: [
     "#FEAC01", // 0: Orange

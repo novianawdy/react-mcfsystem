@@ -12,11 +12,21 @@
   "registerNow": "Daftar sekarang!",
 
   "dashboard": "Beranda",
+  "notification": "Notifikasi",
   "flow": "Aliran",
   "temperature": "Suhu",
   "solenoid": "Solenoid",
 
   "log": "Log",
+  "log.subtitle": "Menampilkan {total} data",
+  "all": "Semua",
+  "date": "Tanggal",
+  "reload": "Muat Ulang",
+  "filter": "Filter",
+  "search": "Pencarian",
+  "searchBy": "Cari Dalam",
+  "operator": "Operator",
+  "deleteFilter": "Hapus Filter",
 
   "setting": "Pengaturan",
 

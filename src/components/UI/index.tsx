@@ -1,8 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Avatar, Row, Col } from "antd";
+import { Avatar, Row, Col, Tooltip, Icon } from "antd";
+import Number from "antd/lib/statistic/Number";
 import notifIcon from "../../assets/images/notification.svg";
 import themes from "../../settings/themes/themes";
+import getLang from "../../lib/getLang";
+import { TooltipPlacement } from "antd/lib/tooltip";
 
 export interface LogoTextProps {
   children: React.ReactNode;
@@ -224,8 +227,123 @@ export class Notification extends React.Component<NotificationProps> {
         style={{ display: "initial", position: "relative", cursor: "pointer" }}
         onClick={onClick}
       >
-        <Avatar src={notifIcon} size="small" /> <Pulse />
+        <Tooltip title={getLang({ id: "notification" })}>
+          <Avatar src={notifIcon} size="small" /> <Pulse />
+        </Tooltip>
       </div>
+    );
+  }
+}
+
+type AnomaliProps = {
+  value?: string | number;
+  prevValue?: string | number;
+};
+
+export class Anomali extends React.Component<AnomaliProps> {
+  render() {
+    let { value, prevValue } = this.props;
+    let val = 0;
+    let prevVal = 0;
+
+    if (typeof value === "string") {
+      val = parseFloat(value);
+    } else if (typeof value === "number") {
+      val = value;
+    }
+
+    if (typeof prevValue === "string") {
+      prevVal = parseFloat(prevValue);
+    } else if (typeof prevValue === "number") {
+      prevVal = prevValue;
+    }
+
+    if (!prevVal && val === 0) {
+      return "";
+    } else if (!prevVal && val > 0) {
+      return (
+        <span style={{ color: "#3f8600", fontSize: "9px" }}>
+          <Icon type="arrow-up" />
+          <Number
+            value={val}
+            precision={2}
+            decimalSeparator=","
+            groupSeparator="."
+          />
+        </span>
+      );
+    } else if (!prevVal && val < 0) {
+      return (
+        <span style={{ color: "#cf1322", fontSize: "9px" }}>
+          <Icon type="arrow-down" />
+          <Number
+            value={val}
+            precision={2}
+            decimalSeparator=","
+            groupSeparator="."
+          />
+        </span>
+      );
+    } else if (val > prevVal) {
+      return (
+        <span style={{ color: "#3f8600", fontSize: "9px" }}>
+          <Icon type="arrow-up" />
+          <Number
+            value={val - prevVal}
+            precision={2}
+            decimalSeparator=","
+            groupSeparator="."
+          />
+        </span>
+      );
+    } else if (val < prevVal) {
+      return (
+        <span style={{ color: "#cf1322", fontSize: "9px" }}>
+          <Icon type="arrow-down" />
+          <Number
+            value={prevVal - val}
+            precision={2}
+            decimalSeparator=","
+            groupSeparator="."
+          />
+        </span>
+      );
+    } else {
+      return "";
+    }
+  }
+}
+
+type IconButtonProps = {
+  tooltip?: {
+    title: string | React.ReactNode;
+    placement: TooltipPlacement;
+  };
+  icon: string;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+};
+
+export class IconButton extends React.Component<IconButtonProps> {
+  render() {
+    const { tooltip, icon, onClick, style, ...restProps } = this.props;
+    const CustomIcon = styled(Icon)`
+      cursor: pointer;
+      font-size: 15px;
+
+      :hover {
+        color: ${themes.themedefault.palette.primary[0]};
+      }
+    `;
+    return (
+      <Tooltip title={tooltip?.title} placement={tooltip?.placement}>
+        <CustomIcon
+          type={icon}
+          onClick={onClick}
+          style={style}
+          {...restProps}
+        />
+      </Tooltip>
     );
   }
 }
