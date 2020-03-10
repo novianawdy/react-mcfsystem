@@ -29,6 +29,17 @@
   "deleteFilter": "Delete Filter",
 
   "setting": "Setting",
+  "global_setting": "Global Setting",
+  "mock_setting": "Mock Setting",
+  "setting.solenoid": "Turn solenoid On or Off",
+  "notificate": "Notification",
+  "setting.notificate": "Turn notification On or Off",
+  "notificate_on_temperature": "Temperature Notification",
+  "setting.notificate_on_temperature": "Send notification when temperature reach value",
+  "mock_temperature": "Mock Temperature",
+  "setting.mock_temperature": "Turn mock temperature On or Off",
+  "fake_temperature": "Fake Temperature",
+  "setting.fake_temperature": "Fake temperature value",
 
   "profile": "Profile",
 

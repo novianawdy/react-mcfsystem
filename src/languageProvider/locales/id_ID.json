@@ -29,6 +29,17 @@
   "deleteFilter": "Hapus Filter",
 
   "setting": "Pengaturan",
+  "global_setting": "Pengaturan Umum",
+  "mock_setting": "Pengaturan Buatan",
+  "setting.solenoid": "Menghidupkan atau mematikan solenoid",
+  "notificate": "Notifikasi",
+  "setting.notificate": "Menghidupkan atau mematikan notifikasi",
+  "notificate_on_temperature": "Notifikasi Suhu",
+  "setting.notificate_on_temperature": "Kirim notifikasi ketika suhu mencapai nilai",
+  "mock_temperature": "Suhu Tiruan",
+  "setting.mock_temperature": "Menghidupkan atau mematikan suhu tiruan",
+  "fake_temperature": "Suhu Palsu",
+  "setting.fake_temperature": "Nilai suhu palsu",
 
   "profile": "Profil",
 

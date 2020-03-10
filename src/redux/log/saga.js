@@ -3,7 +3,7 @@ import action from "./action";
 import { apiGet } from "../../lib/helper";
 import getLang from "../../lib/getLang";
 
-export function* logRequest({ payload }) {
+export function* getLogRequest({ payload }) {
   const { page, filter } = payload;
 
   let str = null;
@@ -74,5 +74,5 @@ export function* logRequest({ payload }) {
 }
 
 export default function* rootSaga() {
-  yield all([takeLatest(action.GET_LOG_REQUEST, logRequest)]);
+  yield all([takeLatest(action.GET_LOG_REQUEST, getLogRequest)]);
 }
