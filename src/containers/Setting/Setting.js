@@ -164,6 +164,24 @@ class Setting extends Component {
                           />
                         </List.Item>
                       );
+                    }
+                    if (key === "mock_temperature") {
+                      return (
+                        <List.Item
+                          actions={[
+                            <Switch
+                              checkedChildren="On"
+                              unCheckedChildren="Off"
+                              // checked={parseFloat(valueDecimal) ? true : false}
+                            />
+                          ]}
+                        >
+                          <List.Item.Meta
+                            title={getLang({ id: key })}
+                            description={getLang({ id: `setting.${key}` })}
+                          />
+                        </List.Item>
+                      );
                     } else {
                       return (
                         <List.Item>
