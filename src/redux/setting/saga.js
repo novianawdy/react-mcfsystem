@@ -37,16 +37,14 @@ export function* getSettingRequest() {
 export function* updateSettingRequest({ payload }) {
   const { body } = payload;
 
-  const response = yield call(apiPut, "settings", body);
+  const response = yield call(apiPut, "settings/bulk-update", body);
 
   try {
     if (response && response.status === "success") {
-      const { setting } = response.result;
-
       yield all([
         put({
           type: action.UPDATE_SETTING_SUCCESS,
-          setting
+          success: { message: getLang({ id: "setting.successUpdate" }) }
         }),
         put({
           type: action.GET_SETTING_REQUEST

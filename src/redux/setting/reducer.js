@@ -8,6 +8,7 @@ const initState = {
         mock_setting: []
       },
   loading: false,
+  loadingSubmit: false,
   success: undefined,
   error: undefined
 };
@@ -34,18 +35,18 @@ export default function authReducer(state = initState, dispatch) {
     case action.UPDATE_SETTING_REQUEST:
       return {
         ...state,
-        loading: true
+        loadingSubmit: true
       };
     case action.UPDATE_SETTING_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loadingSubmit: false,
         success: dispatch.success.message
       };
     case action.UPDATE_SETTING_ERROR:
       return {
         ...state,
-        loading: false,
+        loadingSubmit: false,
         error: dispatch.error.message
       };
     case action.CLEAR_SUCCESS:
