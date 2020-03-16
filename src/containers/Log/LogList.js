@@ -201,7 +201,7 @@ class LogList extends Component {
     );
 
     const overload = logs.length * this.rowHeight > this.props.totalHeight;
-    console.log(overload, logs.length * this.rowHeight, this.props.totalHeight);
+
     return (
       <Card bodyStyle={{ padding: 0 }}>
         <List style={{ height: 50, paddingRight: overload ? 8 : 0 }}>
