@@ -124,7 +124,7 @@ class Log extends Component {
             <LogList
               loadedRowsMap={this.loadedRowsMap}
               setLoadedRows={this.setLoadedRows}
-              totalHeight={this.state.totalHeight}
+              totalHeight={this.totalHeight}
               updateTotalHeight={this.updateTotalHeight}
             />
           </Col>

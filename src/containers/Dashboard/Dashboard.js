@@ -55,11 +55,15 @@ class Dashboard extends Component {
             // temperature = data.length ? data[data.length - 1].temperature : 0;
             break;
           case 1:
-            flow = data.length ? data[data.length - 1].flow + 25 : 1;
+            flow = data.length
+              ? data[data.length - 1].flow + randomInt(0, 30)
+              : 1;
             // temperature = data.length ? data[data.length - 1].temperature + 10 : 1;
             break;
           case 2:
-            flow = data.length ? data[data.length - 1].flow - 25 : 1;
+            flow = data.length
+              ? data[data.length - 1].flow - randomInt(0, 30)
+              : 1;
             // temperature = data.length ? data[data.length - 1].temperature - 10 : 1;
             break;
           default:
@@ -134,7 +138,12 @@ class Dashboard extends Component {
 
     return (
       <div style={{ padding: 16 }}>
-        <Row type="flex" justify="space-between" style={{ marginBottom: 16 }}>
+        <Row
+          type="flex"
+          justify="space-between"
+          gutter={[16, 16]}
+          style={{ marginBottom: 16 }}
+        >
           <Col xs={24} sm={8} md={8} lg={8} xl={8}>
             <Card>
               <Statistic
