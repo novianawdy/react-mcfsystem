@@ -7,7 +7,7 @@ const initState = {
         global_setting: [],
         mock_setting: []
       },
-  loading: false,
+  loading: true,
   loadingSubmit: false,
   success: undefined,
   error: undefined

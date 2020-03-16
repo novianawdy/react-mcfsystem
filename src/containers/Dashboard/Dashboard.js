@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-// import getLang from "../../lib/getLang";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Row, Col, Card, Statistic, Icon } from "antd";
+import { Row, Col, Card, Statistic, Icon, Spin } from "antd";
 import { randomInt } from "../../lib/helper";
 import moment from "moment";
 
 import Chart from "./Chart";
 import getLang from "../../lib/getLang";
+
+import settingAction from "../../redux/setting/action";
+
+const { getSettingRequest } = settingAction;
 
 class Dashboard extends Component {
   state = {
@@ -15,47 +18,71 @@ class Dashboard extends Component {
   };
 
   componentDidMount = () => {
-    this.interval = setInterval(() => {
-      const { data } = this.state;
-      const modifier = randomInt(0, 3);
-      let flow, temperature;
-      switch (modifier) {
-        case 0:
-          flow = data.length ? data[data.length - 1].flow : 0;
-          temperature = data.length ? data[data.length - 1].temperature : 0;
-          break;
-        case 1:
-          flow = data.length ? data[data.length - 1].flow + 25 : 1;
-          temperature = data.length
-            ? data[data.length - 1].temperature + 10
-            : 1;
-          break;
-        case 2:
-          flow = data.length ? data[data.length - 1].flow - 25 : 1;
-          temperature = data.length
-            ? data[data.length - 1].temperature - 10
-            : 1;
-          break;
-        default:
-          break;
-      }
-      const newData = {
-        id: randomInt(0, 1000000),
-        flow,
-        temperature,
-        solenoid: randomInt(0, 2),
-        created_at: moment().format("YYYY-MM-DD HH:mm:ss")
-      };
+    const { getSettingRequest } = this.props;
+    getSettingRequest();
+  };
 
-      let modifiedData = this.state.data;
-      if (modifiedData.length > 20) {
-        modifiedData.shift();
-        modifiedData.push(newData);
-      } else {
-        modifiedData.push(newData);
-      }
-      this.setState({ data: modifiedData });
-    }, 1000);
+  componentDidUpdate = () => {
+    const { loading, setting } = this.props.setting;
+    const { global_setting, mock_setting } = setting;
+
+    // set interval after finish load setting
+    if (!loading && !this.interval) {
+      let solenoid = global_setting.find(x => x.key === "solenoid");
+      solenoid = parseInt(solenoid.value_decimal);
+
+      let mock_temperature = mock_setting.find(
+        x => x.key === "mock_temperature"
+      );
+      mock_temperature = parseInt(mock_temperature.value_decimal)
+        ? true
+        : false;
+
+      let fake_temperature = mock_setting.find(
+        x => x.key === "fake_temperature"
+      );
+      fake_temperature = parseFloat(fake_temperature.value_decimal);
+
+      this.interval = setInterval(() => {
+        const { data } = this.state;
+        const modifier = randomInt(0, 3);
+        let flow;
+        let temperature = mock_temperature ? fake_temperature : 0;
+
+        switch (modifier) {
+          case 0:
+            flow = data.length ? data[data.length - 1].flow : 0;
+            // temperature = data.length ? data[data.length - 1].temperature : 0;
+            break;
+          case 1:
+            flow = data.length ? data[data.length - 1].flow + 25 : 1;
+            // temperature = data.length ? data[data.length - 1].temperature + 10 : 1;
+            break;
+          case 2:
+            flow = data.length ? data[data.length - 1].flow - 25 : 1;
+            // temperature = data.length ? data[data.length - 1].temperature - 10 : 1;
+            break;
+          default:
+            break;
+        }
+        const newData = {
+          id: randomInt(0, 1000000),
+          flow,
+          temperature,
+          solenoid,
+          created_at: moment().format("YYYY-MM-DD HH:mm:ss")
+        };
+
+        let modifiedData = this.state.data;
+        if (modifiedData.length > 20) {
+          modifiedData.shift();
+          modifiedData.push(newData);
+        } else {
+          modifiedData.push(newData);
+        }
+        this.setState({ data: modifiedData });
+      }, 1000);
+    }
   };
 
   componentWillUnmount = () => {
@@ -64,11 +91,12 @@ class Dashboard extends Component {
 
   render() {
     const { data } = this.state;
+    const { loading } = this.props.setting;
 
-    let flowColor = "#3f8600";
-    let flowIcon = "arrow-up";
-    let temperatureColor = "#3f8600";
-    let temperatureIcon = "arrow-up";
+    let flowColor = "#2d2d2d";
+    let flowIcon = null;
+    let temperatureColor = "#2d2d2d";
+    let temperatureIcon = null;
     let solenoid = "Off";
     let solenoidColor = "#2d2d2d";
     const length = data.length;
@@ -78,12 +106,25 @@ class Dashboard extends Component {
       flowIcon = "arrow-down";
     }
 
+    if (length > 1 && data[length - 1].flow > data[length - 2].flow) {
+      flowColor = "#3f8600";
+      flowIcon = "arrow-up";
+    }
+
     if (
       length > 1 &&
       data[length - 1].temperature < data[length - 2].temperature
     ) {
       temperatureColor = "#cf1322";
       temperatureIcon = "arrow-down";
+    }
+
+    if (
+      length > 1 &&
+      data[length - 1].temperature > data[length - 2].temperature
+    ) {
+      temperatureColor = "#3f8600";
+      temperatureIcon = "arrow-up";
     }
 
     if (length && data[length - 1].solenoid) {
@@ -101,7 +142,7 @@ class Dashboard extends Component {
                 value={length ? data[length - 1].flow : 0}
                 precision={2}
                 valueStyle={{ color: flowColor }}
-                prefix={<Icon type={flowIcon} />}
+                prefix={flowIcon && <Icon type={flowIcon} />}
                 suffix="mL/s"
               />
             </Card>
@@ -113,7 +154,7 @@ class Dashboard extends Component {
                 value={length ? data[length - 1].temperature : 0}
                 precision={2}
                 valueStyle={{ color: temperatureColor }}
-                prefix={<Icon type={temperatureIcon} />}
+                prefix={temperatureIcon && <Icon type={temperatureIcon} />}
                 suffix="°C"
               />
             </Card>
@@ -132,7 +173,9 @@ class Dashboard extends Component {
         <Row>
           <Col span={24}>
             <Card>
-              <Chart data={data} />
+              <Spin spinning={loading}>
+                <Chart data={data} />
+              </Spin>
             </Card>
           </Col>
         </Row>
@@ -142,7 +185,12 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  setting: state.setting
 });
 
-export default compose(connect(mapStateToProps))(Dashboard);
+const mapDispatchToProps = {
+  getSettingRequest
+};
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Dashboard);
