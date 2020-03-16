@@ -9,6 +9,7 @@ import getLang from "../../lib/getLang";
 
 import UserList from "./UserList";
 import Filter from "./Filter";
+import ModalRegister from "./ModalRegister";
 import ModalUpdate from "./ModalUpdate";
 import ModalChangePassword from "./ModalChangePassword";
 
@@ -18,6 +19,7 @@ const { getUserRequest, clearSuccess, clearError } = action;
 class User extends Component {
   state = {
     visibleFilter: false,
+    visibleRegister: false,
     visibleUpdate: false,
     visibleChangePassword: false
   };
@@ -70,6 +72,11 @@ class User extends Component {
     this.setState({ visibleFilter: !visibleFilter });
   };
 
+  handleRegisterModal = () => {
+    const { visibleRegister } = this.state;
+    this.setState({ visibleRegister: !visibleRegister });
+  };
+
   handleUpdateModal = () => {
     const { visibleUpdate } = this.state;
     this.setState({ visibleUpdate: !visibleUpdate });
@@ -81,7 +88,12 @@ class User extends Component {
   };
 
   render() {
-    const { visibleFilter, visibleUpdate, visibleChangePassword } = this.state;
+    const {
+      visibleFilter,
+      visibleRegister,
+      visibleUpdate,
+      visibleChangePassword
+    } = this.state;
     const { total } = this.props.user;
     const { getUserRequest } = this.props;
 
@@ -91,6 +103,11 @@ class User extends Component {
           visible={visibleFilter}
           handleModal={this.handleFilterModal}
           resetLoadedRows={this.resetLoadedRows}
+        />
+
+        <ModalRegister
+          visible={visibleRegister}
+          handleModal={this.handleRegisterModal}
         />
 
         <ModalUpdate

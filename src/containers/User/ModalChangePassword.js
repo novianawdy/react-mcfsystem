@@ -135,7 +135,7 @@ class ModalChangePasswordForm extends Component {
             )}
           </Form.Item>
 
-          <Form.Item label={getLang({ id: "confirmPassword" })}>
+          <Form.Item label={getLang({ id: "confirmNewPassword" })}>
             {getFieldDecorator("confirm_password", {
               initialValue: undefined,
               rules: [
@@ -145,7 +145,7 @@ class ModalChangePasswordForm extends Component {
               ]
             })(
               <Input.Password
-                placeholder={getLang({ id: "confirmPassword" })}
+                placeholder={getLang({ id: "confirmNewPassword" })}
                 disabled={role === 1 || role === 3}
               />
             )}

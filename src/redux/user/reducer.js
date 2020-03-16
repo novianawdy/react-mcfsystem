@@ -41,6 +41,23 @@ export default function userReducer(state = initState, dispatch) {
         loading: false,
         error: dispatch.error.message
       };
+    case action.REGISTER_USER_REQUEST:
+      return {
+        ...state,
+        loadingSubmit: true
+      };
+    case action.REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        loadingSubmit: false,
+        success: dispatch.success.message
+      };
+    case action.REGISTER_USER_ERROR:
+      return {
+        ...state,
+        loadingSubmit: false,
+        error: dispatch.error.message
+      };
     case action.UPDATE_USER_REQUEST:
       return {
         ...state,
