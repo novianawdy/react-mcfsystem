@@ -142,21 +142,30 @@ class AppLayout extends React.Component<AppLayoutProps> {
                           </Menu.Item>
                         );
                       } else {
-                        return (
-                          <Menu.Item
-                            key={`/app${data.path}`}
-                            onClick={() => {
-                              if (onClickMenu) {
-                                onClickMenu(`/app${data.path}`);
-                              }
-                              this.setState({ activeMenu: `/app${data.path}` });
-                            }}
-                          >
-                            <Link to={`/app${data.path}`}>
-                              {getLang({ id: data.name })}
-                            </Link>
-                          </Menu.Item>
-                        );
+                        if (
+                          !data.role ||
+                          (data.role && data.role.includes(user.role))
+                        ) {
+                          return (
+                            <Menu.Item
+                              key={`/app${data.path}`}
+                              onClick={() => {
+                                if (onClickMenu) {
+                                  onClickMenu(`/app${data.path}`);
+                                }
+                                this.setState({
+                                  activeMenu: `/app${data.path}`
+                                });
+                              }}
+                            >
+                              <Link to={`/app${data.path}`}>
+                                {getLang({ id: data.name })}
+                              </Link>
+                            </Menu.Item>
+                          );
+                        } else {
+                          return undefined;
+                        }
                       }
                     })}
                   </Menu>

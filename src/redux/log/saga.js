@@ -23,7 +23,7 @@ export function* getLogRequest({ payload }) {
     if (!values.temperature) delete values.temperature_is;
 
     Object.keys(values).map(key =>
-      values[key] !== undefined
+      values[key]
         ? str
           ? (str += `&${key}=${values[key]}`)
           : (str = `${key}=${values[key]}`)

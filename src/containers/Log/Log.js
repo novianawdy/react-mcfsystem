@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Row, Col, Typography, Divider } from "antd";
+import { Row, Col, Typography, Divider, message } from "antd";
 
 import action from "../../redux/log/action";
 import { IconButton } from "../../components/UI";
@@ -11,7 +11,7 @@ import LogList from "./LogList";
 import Filter from "./Filter";
 
 const { Title } = Typography;
-const { getLogRequest, clearError } = action;
+const { getLogRequest, clearSuccess, clearError } = action;
 
 class Log extends Component {
   state = {
@@ -26,7 +26,23 @@ class Log extends Component {
     }
   };
 
+  componentDidUpdate = () => {
+    const { success, error } = this.props.log;
+    const { clearSuccess, clearError } = this.props;
+
+    if (success) {
+      message.success(success);
+      clearSuccess();
+    }
+
+    if (error) {
+      message.error(error);
+      clearError();
+    }
+  };
+
   loadedRowsMap = {};
+  totalHeight = 0;
 
   setLoadedRows = i => {
     this.loadedRowsMap[i] = 1;
@@ -34,6 +50,10 @@ class Log extends Component {
 
   resetLoadedRows = () => {
     this.loadedRowsMap = {};
+  };
+
+  updateTotalHeight = totalHeight => {
+    this.totalHeight = totalHeight;
   };
 
   handleFilterModal = () => {
@@ -104,6 +124,8 @@ class Log extends Component {
             <LogList
               loadedRowsMap={this.loadedRowsMap}
               setLoadedRows={this.setLoadedRows}
+              totalHeight={this.state.totalHeight}
+              updateTotalHeight={this.updateTotalHeight}
             />
           </Col>
         </Row>
@@ -119,6 +141,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getLogRequest,
+  clearSuccess,
   clearError
 };
 

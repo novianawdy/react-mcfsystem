@@ -12,7 +12,7 @@ const initState = {
   error: undefined
 };
 
-export default function authReducer(state = initState, dispatch) {
+export default function logReducer(state = initState, dispatch) {
   switch (dispatch.type) {
     case action.GET_LOG_REQUEST:
       return {
