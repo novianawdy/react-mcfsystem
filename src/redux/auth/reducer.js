@@ -34,6 +34,11 @@ export default function authReducer(state = initState, dispatch) {
         loading: false,
         error: dispatch.error.message
       };
+    case action.SET_USER_DATA:
+      return {
+        ...state,
+        user: dispatch.user
+      };
     case action.LOGOUT_REQUEST:
       return {
         ...state,

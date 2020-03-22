@@ -49,6 +49,12 @@ class SettingForm extends Component {
       });
     }
 
+    if (prevProps.setting.setting !== setting && setting && activeMenuKey) {
+      this.setState({
+        contents: setting[activeMenuKey]
+      });
+    }
+
     if (success) {
       message.success(success);
       clearSuccess();

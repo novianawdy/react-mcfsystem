@@ -23,28 +23,29 @@ class Dashboard extends Component {
   };
 
   componentDidUpdate = () => {
-    const { loading, setting } = this.props.setting;
-    const { global_setting, mock_setting } = setting;
-
+    const { loading } = this.props.setting;
     // set interval after finish load setting
     if (!loading && !this.interval) {
-      let solenoid = global_setting.find(x => x.key === "solenoid");
-      solenoid = parseInt(solenoid.value_decimal);
-
-      let mock_temperature = mock_setting.find(
-        x => x.key === "mock_temperature"
-      );
-      mock_temperature = parseInt(mock_temperature.value_decimal)
-        ? true
-        : false;
-
-      let fake_temperature = mock_setting.find(
-        x => x.key === "fake_temperature"
-      );
-      fake_temperature = parseFloat(fake_temperature.value_decimal);
-
       this.interval = setInterval(() => {
+        const { setting } = this.props.setting;
+        const { global_setting, mock_setting } = setting;
         const { data } = this.state;
+
+        let solenoid = global_setting.find(x => x.key === "solenoid");
+        solenoid = parseInt(solenoid.value_decimal);
+
+        let mock_temperature = mock_setting.find(
+          x => x.key === "mock_temperature"
+        );
+        mock_temperature = parseInt(mock_temperature.value_decimal)
+          ? true
+          : false;
+
+        let fake_temperature = mock_setting.find(
+          x => x.key === "fake_temperature"
+        );
+        fake_temperature = parseFloat(fake_temperature.value_decimal);
+
         const modifier = randomInt(0, 3);
         let flow;
         let temperature = mock_temperature ? fake_temperature : 0;

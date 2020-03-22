@@ -71,5 +71,24 @@
   "logout": "Keluar",
   "checkInternet": "Cek koneksi internet Anda",
   "caution": "Peringatan",
-  "language": "Bahasa"
+  "language": "Bahasa",
+
+  "notfication": "Notifikasi",
+  "noUnreadNotification": "Tidak ada notifikasi yang belum dibaca",
+  "noNotification": "Tidak ada notifikasi",
+  "settingChanged": "Pengaturan Diubah",
+  "settingChangedBy": "Pengaturan baru saja diubah oleh <strong>{username}</strong>.",
+  "settingChangedByText": "Pengaturan baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali pengaturan yang baru. Apabila pengaturan tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan tersebut.",
+  "temperatureChanged": "Pengaturan Suhu Diubah",
+  "temperatureChangedBy": "Pengaturan suhu baru saja diubah oleh <strong>{username}</strong>.",
+  "temperatureChangedByText": "Pengaturan suhu baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali pengaturan suhu yang baru. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut.",
+  "passwordChanged": "Password Diubah",
+  "passwordChangedBy": "Password baru saja diubah oleh <strong>{username}</strong>.",
+  "passwordChangedByText": "Password baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali password Anda yang baru. Apabila password tidak sesuai dengan yang Anda inginkan, Anda dapat meminta untuk mengubahnya kembali.",
+  "profileChanged": "Profil Diubah",
+  "profileChangedBy": "Profil baru saja diubah oleh <strong>{username}</strong>.",
+  "profileChangedByText": "Profil baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali profil Anda yang baru. Apabila profil tidak sesuai dengan yang Anda inginkan, Anda dapat meminta untuk mengubahnya kembali.",
+  "temperatureReached": "Suhu Mencapai Batas",
+  "temperatureReachedValue": "Suhu baru saja <strong>mencapai batas</strong>.",
+  "temperatureReachedValueText": "Suhu baru saja <strong>mencapai batas</strong>. Mohon lihat kembali pengaturan suhu dan solenoid. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut."
 }

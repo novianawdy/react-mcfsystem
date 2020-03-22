@@ -10,6 +10,10 @@ const action = {
   getSettingRequest: () => ({
     type: action.GET_SETTING_REQUEST
   }),
+  setSetting: setting => ({
+    type: action.GET_SETTING_SUCCESS,
+    setting
+  }),
   updateSettingRequest: data => ({
     type: action.UPDATE_SETTING_REQUEST,
     payload: { body: data }

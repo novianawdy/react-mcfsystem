@@ -71,5 +71,24 @@
   "logout": "Logout",
   "checkInternet": "Check your internet connection",
   "caution": "Caution",
-  "language": "Language"
+  "language": "Language",
+
+  "notfication": "Notification",
+  "noUnreadNotification": "No unread notifications",
+  "noNotification": "No notifications",
+  "settingChanged": "Settings Changed",
+  "settingChangedBy": "Settings have been changed by <strong>{username}</strong>.",
+  "settingChangedByText": "Settings have just been changed by <strong>{username}</strong>. Please review new settings again. If settings are not what you want, change settings again.",
+  "temperatureChanged": "Temperature Settings Changed",
+  "temperatureChangedBy": "Temperature settings have been changed by <strong>{username}</strong>.",
+  "temperatureChangedByText": "Temperature settings have just been changed by <strong>{username}</strong>. Please review new temperature settings again. If temperature settings are not what you want, change temperature settings again.",
+  "passwordChanged": "Password Changed",
+  "passwordChangedBy": "Password have been changed by <strong>{username}</strong>.",
+  "passwordChangedByText": "Password have just been changed by <strong>{username}</strong>. Please check your new password. If password are not what you want, you can make a request to change it again.",
+  "profileChanged": "Profile Changed",
+  "profileChangedBy": "Profile have been changed by <strong>{username}</strong>.",
+  "profileChangedByText": "Profile have just been changed by <strong>{username}</strong>. Please check your new profile. If profile are not what you want, you can make a request to change it again.",
+  "temperatureReached": "Temperature Reached Limit",
+  "temperatureReachedValue": "Temperature has <strong>reached the limit</strong>.",
+  "temperatureReachedValueByText": "Temperature has <strong>reached the limit</strong>. Please review temperature and solenoid settings again. If temperature settings are not what you want, change temperature settings again."
 }

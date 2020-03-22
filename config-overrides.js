@@ -20,8 +20,8 @@ if (build) {
       javascriptEnabled: true,
       modifyVars: {
         "@primary-color": "#374afb",
-        "@layout-header-background": "#1E1D2E",
-        "@font-family": "Poppins,Helvetica,sans-serif"
+        "@layout-header-background": "#1E1D2E"
+        // "@font-family": "Poppins,Helvetica,sans-serif"
       }
     }),
 
@@ -43,8 +43,8 @@ if (build) {
       javascriptEnabled: true,
       modifyVars: {
         "@primary-color": "#374afb",
-        "@layout-header-background": "#1E1D2E",
-        "@font-family": "Poppins,Helvetica,sans-serif"
+        "@layout-header-background": "#1E1D2E"
+        // "@font-family": "Poppins,Helvetica,sans-serif"
       }
     })
   );

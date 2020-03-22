@@ -5,6 +5,7 @@ import authSagas from "./auth/saga";
 import logSagas from "./log/saga";
 import userSagas from "./user/saga";
 import settingSagas from "./setting/saga";
+import notificationSagas from "./notification/saga";
 
 export default function* rootSaga(getState) {
   yield all([
@@ -12,6 +13,7 @@ export default function* rootSaga(getState) {
     authSagas(),
     logSagas(),
     userSagas(),
-    settingSagas()
+    settingSagas(),
+    notificationSagas()
   ]);
 }

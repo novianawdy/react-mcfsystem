@@ -9,12 +9,16 @@ import themes from "./settings/themes/themes";
 import setting, { themeConfig } from "./settings/setting";
 import { store, history } from "./redux/store";
 import Routes from "./router";
+import moment from "moment";
+import "moment/locale/id";
 
 const currentAppLocale =
   AppLocale[
     getCurrentLanguage(store.getState().dashApp.language || setting.language)
       .locale
   ];
+const lang = store.getState().dashApp.language || setting.language;
+moment.locale(lang);
 
 const DashApp = props => (
   <ConfigProvider locale={currentAppLocale.antd}>

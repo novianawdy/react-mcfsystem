@@ -5,6 +5,9 @@ export const baseUrl = () => setting.baseUrl;
 
 export const auth = () => getLocal("at") || getSession("at");
 
+export const getResponsiveHeight = height =>
+  height - 285 < 200 ? height : height - 285;
+
 /**
  *
  * @param {string} url

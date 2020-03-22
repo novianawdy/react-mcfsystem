@@ -1,14 +1,5 @@
 import * as React from "react";
-import {
-  Layout,
-  Menu,
-  PageHeader,
-  Col,
-  Row,
-  Button,
-  Drawer,
-  Popover
-} from "antd";
+import { Layout, Menu, PageHeader, Col, Row, Button, Drawer } from "antd";
 import Helmet from "react-helmet";
 import "./AppLayout.css";
 import { appRoutes } from "../../router";
@@ -16,14 +7,14 @@ import getLang from "../../lib/getLang";
 import { Link } from "react-router-dom";
 import setting from "../../settings/setting";
 import SelectLang from "../../components/SelectLang";
-import { UserProfile, UserTitle, Notification } from "../../components/UI";
+import { UserProfile, UserTitle } from "../../components/UI";
 // import { LogoText } from "../../components/UI";
 
 import action from "../../redux/auth/action";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import themes from "../../settings/themes/themes";
-import styled from "styled-components";
+import NotificationCenter from "../../components/NotificationCenter";
 
 const { Header, Content, Footer } = Layout;
 const { changeLanguage, logoutRequest } = action;
@@ -64,7 +55,6 @@ class AppLayout extends React.Component<AppLayoutProps> {
   state = {
     visibleDrawerMenu: false,
     visibleDrawerUser: false,
-    visibleNotification: false,
     activeMenu: this.props.location.pathname
   };
 
@@ -73,9 +63,6 @@ class AppLayout extends React.Component<AppLayoutProps> {
 
   handleDrawerUser = () =>
     this.setState({ visibleDrawerUser: !this.state.visibleDrawerUser });
-
-  handleNotification = () =>
-    this.setState({ visibleNotification: !this.state.visibleNotification });
 
   render() {
     const {
@@ -204,23 +191,30 @@ class AppLayout extends React.Component<AppLayoutProps> {
                             </Menu.Item>
                           );
                         } else {
-                          return (
-                            <Menu.Item
-                              key={`/app${data.path}`}
-                              onClick={() => {
-                                if (onClickMenu) {
-                                  onClickMenu(`/app${data.path}`);
-                                }
-                                this.setState({
-                                  activeMenu: `/app${data.path}`
-                                });
-                              }}
-                            >
-                              <Link to={`/app${data.path}`}>
-                                {getLang({ id: data.name })}
-                              </Link>
-                            </Menu.Item>
-                          );
+                          if (
+                            !data.role ||
+                            (data.role && data.role.includes(user.role))
+                          ) {
+                            return (
+                              <Menu.Item
+                                key={`/app${data.path}`}
+                                onClick={() => {
+                                  if (onClickMenu) {
+                                    onClickMenu(`/app${data.path}`);
+                                  }
+                                  this.setState({
+                                    activeMenu: `/app${data.path}`
+                                  });
+                                }}
+                              >
+                                <Link to={`/app${data.path}`}>
+                                  {getLang({ id: data.name })}
+                                </Link>
+                              </Menu.Item>
+                            );
+                          } else {
+                            return undefined;
+                          }
                         }
                       })}
                     </Menu>
@@ -235,15 +229,7 @@ class AppLayout extends React.Component<AppLayoutProps> {
                 xl={12}
                 className="menu-container-right"
               >
-                <Popover
-                  placement="bottom"
-                  trigger="click"
-                  content={NotificationContent}
-                  visible={this.state.visibleNotification}
-                  onVisibleChange={this.handleNotification}
-                >
-                  <Notification onClick={this.handleNotification} />
-                </Popover>
+                <NotificationCenter />
                 <UserProfile
                   username={user.username}
                   avatar={user.username ? user.username.charAt(0) : ""}
@@ -303,19 +289,5 @@ const mapDispatchToProps = {
   changeLanguage,
   logoutRequest
 };
-
-const NotificationWrapper = styled.div`
-  width: 350px;
-  max-width: ${(70 / 100) * window.innerWidth}px;
-`;
-const NotificationTitle = styled.div`
-  height: 64px;
-`;
-
-const NotificationContent = (
-  <NotificationWrapper>
-    <NotificationTitle>Notification</NotificationTitle>
-  </NotificationWrapper>
-);
 
 export default compose(connect(null, mapDispatchToProps))(AppLayout);
