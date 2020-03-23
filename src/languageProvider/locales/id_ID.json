@@ -76,6 +76,7 @@
   "notfication": "Notifikasi",
   "noUnreadNotification": "Tidak ada notifikasi yang belum dibaca",
   "noNotification": "Tidak ada notifikasi",
+  "markAllAsRead": "Tandai semua telah dibaca",
   "settingChanged": "Pengaturan Diubah",
   "settingChangedBy": "Pengaturan baru saja diubah oleh <strong>{username}</strong>.",
   "settingChangedByText": "Pengaturan baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali pengaturan yang baru. Apabila pengaturan tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan tersebut.",

@@ -110,7 +110,8 @@ export function* markAllAsRead() {
 
     if (result && result.status === "success") {
       yield put({
-        type: "INIT_NOTIFICATION_REQUEST"
+        type: "INIT_NOTIFICATION_REQUEST",
+        payload: { show_unread_only: true }
       });
     } else if (result && result.status === "fail") {
       yield put({

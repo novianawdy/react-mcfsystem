@@ -9,7 +9,9 @@ import {
   message,
   Empty,
   Spin,
-  Icon
+  Icon,
+  Menu,
+  Dropdown
 } from "antd";
 import styled from "styled-components";
 import moment from "moment";
@@ -22,7 +24,13 @@ import getLang from "../../lib/getLang";
 
 import action from "../../redux/notification/action";
 
-const { setOpenedNotif, loadMoreNotif, clearSuccess, clearError } = action;
+const {
+  setOpenedNotif,
+  loadMoreNotif,
+  markAllNotifAsRead,
+  clearSuccess,
+  clearError
+} = action;
 
 class NotificationCenter extends React.Component {
   state = {
@@ -48,7 +56,7 @@ class NotificationCenter extends React.Component {
     this.setState({ visibleNotification: !this.state.visibleNotification });
 
   render() {
-    const { loadMoreNotif } = this.props;
+    const { loadMoreNotif, markAllNotifAsRead } = this.props;
     const { notification_stack } = this.props.notification;
     const {
       loadingInit,
@@ -59,6 +67,14 @@ class NotificationCenter extends React.Component {
     } = this.props.notification;
     const next_page = current_page + 1;
 
+    const menu = (
+      <Menu>
+        <Menu.Item key="1" onClick={() => markAllNotifAsRead()}>
+          {getLang({ id: "markAllAsRead" })}
+        </Menu.Item>
+      </Menu>
+    );
+
     const NotificationContent = (
       <NotificationWrapper>
         <Row type="flex" justify="space-between">
@@ -68,7 +84,9 @@ class NotificationCenter extends React.Component {
             </NotificationTitle>
           </Col>
           <Col>
-            <Action icon="more" size="small" />
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <Action icon="more" size="small" />
+            </Dropdown>
           </Col>
         </Row>
         <Divider style={{ margin: "12px 0" }} />
@@ -323,6 +341,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setOpenedNotif,
   loadMoreNotif,
+  markAllNotifAsRead,
   clearSuccess,
   clearError
 };

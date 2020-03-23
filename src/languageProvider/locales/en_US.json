@@ -76,6 +76,7 @@
   "notfication": "Notification",
   "noUnreadNotification": "No unread notifications",
   "noNotification": "No notifications",
+  "markAllAsRead": "Mark all as read",
   "settingChanged": "Settings Changed",
   "settingChangedBy": "Settings have been changed by <strong>{username}</strong>.",
   "settingChangedByText": "Settings have just been changed by <strong>{username}</strong>. Please review new settings again. If settings are not what you want, change settings again.",
