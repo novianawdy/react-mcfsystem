@@ -1,8 +1,8 @@
 import { auth } from "../lib/helper";
 
 const setting = {
-  baseUrl: "http://192.168.43.122:8000/",
-  wsserver: "192.168.43.122",
+  baseUrl: "http://api.mcfsystem.hostkulo.com/",
+  wsserver: "api.mcfsystem.hostkulo.com",
   appName: "MCF System",
   appDescription: "Monitoring and Controlling Fluid System",
   footer: "Monitoring and Controlling Fluid System ©2020",
