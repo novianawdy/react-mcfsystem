@@ -24,20 +24,20 @@
 }
 
 .ant-menu-dark.ant-menu-horizontal {
-  margin: auto 0;
-  width: 100%;
+  margin: auto 0 !important;
+  width: 100% !important;
 }
 
 .ant-menu-horizontal {
-  line-height: 36px;
+  line-height: 36px !important;
 }
 
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-  border-radius: 4px;
+  border-radius: 4px !important;
 }
 
 .ant-menu-item,
 .ant-menu-submenu-title {
-  padding: 0 15px;
+  padding: 0 15px !important;
 }
