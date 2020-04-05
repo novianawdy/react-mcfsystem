@@ -12,12 +12,13 @@
   "registerNow": "Daftar sekarang!",
   "pageNotExist": "Maaf, halaman yang Anda kunjungi tidak ada.",
   "backHome": "Kembali ke Beranda",
+  "required": "Wajib",
 
   "dashboard": "Beranda",
   "notification": "Notifikasi",
   "flow": "Aliran",
   "temperature": "Suhu",
-  "solenoid": "Solenoid",
+  "solenoid": "Katup",
 
   "log": "Log",
   "log.subtitle": "Menampilkan {total} data",
@@ -27,7 +28,7 @@
   "filter": "Filter",
   "search": "Pencarian",
   "searchBy": "Cari Dalam",
-  "operator": "Operator",
+  "operator": "Kondisi",
   "deleteFilter": "Hapus Filter",
 
   "user": "Pengguna",
@@ -55,7 +56,7 @@
   "save": "Simpan",
   "global_setting": "Pengaturan Umum",
   "mock_setting": "Pengaturan Buatan",
-  "setting.solenoid": "Menghidupkan atau mematikan solenoid",
+  "setting.solenoid": "Menghidupkan atau mematikan katup",
   "notificate": "Notifikasi",
   "setting.notificate": "Menghidupkan atau mematikan notifikasi",
   "notificate_on_temperature": "Notifikasi Suhu",
@@ -65,6 +66,7 @@
   "fake_temperature": "Nilai Suhu Buatan",
   "setting.fake_temperature": "Mengatur nilai suhu buatan",
   "setting.successUpdate": "Berhasil mengubah pengaturan",
+  "sureToSaveSetting": "Apakah Anda yakin untuk mengubah pengaturan?",
 
   "profile": "Profil",
 
@@ -91,5 +93,5 @@
   "profileChangedByText": "Profil baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali profil Anda yang baru. Apabila profil tidak sesuai dengan yang Anda inginkan, Anda dapat meminta untuk mengubahnya kembali.",
   "temperatureReached": "Suhu Mencapai Batas",
   "temperatureReachedValue": "Suhu baru saja <strong>mencapai batas</strong>.",
-  "temperatureReachedValueText": "Suhu baru saja <strong>mencapai batas</strong>. Mohon lihat kembali pengaturan suhu dan solenoid. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut."
+  "temperatureReachedValueText": "Suhu baru saja <strong>mencapai batas</strong>. Mohon lihat kembali pengaturan suhu dan katup. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut."
 }

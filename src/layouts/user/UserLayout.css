@@ -39,6 +39,11 @@
   text-align: center;
 }
 
+.bottom {
+  text-align: center;
+  height: 80px;
+}
+
 .header {
   height: 44px;
   line-height: 44px;
@@ -49,9 +54,11 @@
 }
 
 .logo {
-  height: 44px;
-  margin-right: 16px;
-  vertical-align: top;
+  margin-bottom: 12px;
+}
+
+.logo > img {
+  max-width: 120px;
 }
 
 .title {

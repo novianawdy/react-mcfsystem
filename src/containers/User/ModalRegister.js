@@ -46,12 +46,14 @@ class ModalRegisterForm extends Component {
       <Modal
         visible={visible}
         title={getLang({ id: "registerUser" })}
-        onCancel={handleModal}
+        onCancel={() => {
+          this.props.form.resetFields();
+          return handleModal();
+        }}
         footer={
           <>
             <Button
               onClick={() => {
-                const { handleModal } = this.props;
                 this.props.form.resetFields();
                 return handleModal();
               }}
@@ -73,13 +75,25 @@ class ModalRegisterForm extends Component {
         <Form layout="vertical">
           <Form.Item label={getLang({ id: "username" })}>
             {getFieldDecorator("username", {
-              initialValue: undefined
+              initialValue: undefined,
+              rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                }
+              ]
             })(<Input placeholder={getLang({ id: "username" })} />)}
           </Form.Item>
 
           <Form.Item label={getLang({ id: "name" })}>
             {getFieldDecorator("name", {
-              initialValue: undefined
+              initialValue: undefined,
+              rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                }
+              ]
             })(<Input placeholder={getLang({ id: "name" })} />)}
           </Form.Item>
 
@@ -87,6 +101,10 @@ class ModalRegisterForm extends Component {
             {getFieldDecorator("password", {
               initialValue: undefined,
               rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                },
                 {
                   validator: this.validateToNextPassword
                 }
@@ -98,6 +116,10 @@ class ModalRegisterForm extends Component {
             {getFieldDecorator("confirm_password", {
               initialValue: undefined,
               rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                },
                 {
                   validator: this.compareToFirstPassword
                 }

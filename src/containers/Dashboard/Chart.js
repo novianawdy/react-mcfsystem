@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Chart, Geom, Axis, Tooltip, Legend } from "bizcharts";
+import getLang from "../../lib/getLang";
 
 class CustomChart extends Component {
   render() {
@@ -21,10 +22,10 @@ class CustomChart extends Component {
           custom={true}
           items={[
             {
-              value: "Temperature",
+              value: getLang({ id: "temperature" }),
               fill: "red"
             },
-            { value: "Flow", fill: "blue" }
+            { value: getLang({ id: "flow" }), fill: "blue" }
           ]}
         />
         <Axis name="created_at" />
@@ -59,7 +60,7 @@ class CustomChart extends Component {
             (created_at, flow) => {
               // title: created_at,
               return {
-                name: "Flow",
+                name: getLang({ id: "flow" }),
                 value: `${flow} mL/s`
               };
             }
@@ -76,7 +77,7 @@ class CustomChart extends Component {
             (created_at, flow) => {
               // title: created_at,
               return {
-                name: "Flow",
+                name: getLang({ id: "flow" }),
                 value: `${flow} mL/s`
               };
             }
@@ -97,7 +98,7 @@ class CustomChart extends Component {
             (created_at, temperature) => {
               return {
                 // title: created_at,
-                name: "Temperature",
+                name: getLang({ id: "temperature" }),
                 value: `${temperature}°C`
               };
             }
@@ -114,7 +115,7 @@ class CustomChart extends Component {
             (created_at, temperature) => {
               return {
                 // title: created_at,
-                name: "Temperature",
+                name: getLang({ id: "temperature" }),
                 value: `${temperature}°C`
               };
             }

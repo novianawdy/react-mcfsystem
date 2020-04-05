@@ -16,3 +16,7 @@
 .ant-list-split .ant-list-item:last-child {
   border-bottom: 1px solid #e8e8e8;
 }
+
+.content-row:hover {
+  background-color: rgba(192, 227, 251, 0.64) !important;
+}

@@ -8,7 +8,6 @@ import {
   Spin,
   Card,
   Typography,
-  Divider,
   Button,
   Menu,
   Icon,
@@ -80,7 +79,14 @@ class UserList extends Component {
     );
 
     return (
-      <List.Item key={key} style={style}>
+      <List.Item
+        key={key}
+        style={{
+          backgroundColor: index % 2 === 0 ? "#F5F7F8" : "#ffffff",
+          ...style
+        }}
+        className="content-row"
+      >
         <Row
           type="flex"
           justify="space-between"
@@ -277,7 +283,7 @@ class UserList extends Component {
             </Row>
           </List.Item>
         </List>
-        <Divider style={{ margin: 0 }} />
+
         <List>
           {users.length > 0 && (
             <WindowScroller>{infiniteLoader}</WindowScroller>

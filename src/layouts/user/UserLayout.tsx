@@ -8,6 +8,7 @@ import action from "../../redux/dashApp/action";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import setting from "../../settings/setting";
+import Logo from "../../assets/images/mcfsystem-transparent.png";
 
 const { changeLanguage } = action;
 
@@ -37,6 +38,9 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
         </div>
         <div className="content">
           <div className="top">
+            <div className="logo">
+              <img src={Logo} alt="MCFSystem" />
+            </div>
             <div className="header">
               <Link to="/" style={{ textDecoration: "none" }}>
                 {/* <img alt="logo" className="logo" src={logo} /> */}
@@ -46,6 +50,9 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
             <div className="desc">{setting.appDescription}</div>
           </div>
           {children}
+        </div>
+        <div className="bottom">
+          <span className="footer">{setting.footer}</span>
         </div>
       </div>
     </>

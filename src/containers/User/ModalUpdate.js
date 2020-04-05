@@ -29,12 +29,14 @@ class ModalUpdateForm extends Component {
       <Modal
         visible={visible}
         title={getLang({ id: "editUser" })}
-        onCancel={handleModal}
+        onCancel={() => {
+          this.props.form.resetFields();
+          return handleModal();
+        }}
         footer={
           <>
             <Button
               onClick={() => {
-                const { handleModal } = this.props;
                 this.props.form.resetFields();
                 return handleModal();
               }}
@@ -56,13 +58,25 @@ class ModalUpdateForm extends Component {
         <Form layout="vertical">
           <Form.Item label={getLang({ id: "username" })}>
             {getFieldDecorator("username", {
-              initialValue: selectedData.username
+              initialValue: selectedData.username,
+              rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                }
+              ]
             })(<Input placeholder={getLang({ id: "username" })} />)}
           </Form.Item>
 
           <Form.Item label={getLang({ id: "name" })}>
             {getFieldDecorator("name", {
-              initialValue: selectedData.name
+              initialValue: selectedData.name,
+              rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                }
+              ]
             })(<Input placeholder={getLang({ id: "name" })} />)}
           </Form.Item>
         </Form>

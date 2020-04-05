@@ -12,12 +12,13 @@
   "registerNow": "Register now!",
   "pageNotExist": "Sorry, the page you visited does not exist.",
   "backHome": "Back Home",
+  "required": "Required",
 
   "dashboard": "Dashboard",
   "notification": "Notification",
   "flow": "Flow",
   "temperature": "Temperature",
-  "solenoid": "Solenoid",
+  "solenoid": "Valve",
 
   "log": "Log",
   "log.subtitle": "Display {total} data",
@@ -27,7 +28,7 @@
   "filter": "Filter",
   "search": "Search",
   "searchBy": "Search By",
-  "operator": "Operator",
+  "operator": "Condition",
   "deleteFilter": "Delete Filter",
 
   "user": "User",
@@ -53,9 +54,9 @@
 
   "setting": "Setting",
   "save": "Save",
-  "global_setting": "Global Setting",
+  "global_setting": "General Setting",
   "mock_setting": "Custom Setting",
-  "setting.solenoid": "Turn solenoid On or Off",
+  "setting.solenoid": "Turn valve On or Off",
   "notificate": "Notification",
   "setting.notificate": "Turn notification On or Off",
   "notificate_on_temperature": "Temperature Notification",
@@ -65,6 +66,7 @@
   "fake_temperature": "Custom Temperature",
   "setting.fake_temperature": "Set custom temperature value",
   "setting.successUpdate": "Success update setting",
+  "sureToSaveSetting": "Are you sure to update setting?",
 
   "profile": "Profile",
 
@@ -91,5 +93,5 @@
   "profileChangedByText": "Profile have just been changed by <strong>{username}</strong>. Please check your new profile. If profile are not what you want, you can make a request to change it again.",
   "temperatureReached": "Temperature Reached Limit",
   "temperatureReachedValue": "Temperature has <strong>reached the limit</strong>.",
-  "temperatureReachedValueByText": "Temperature has <strong>reached the limit</strong>. Please review temperature and solenoid settings again. If temperature settings are not what you want, change temperature settings again."
+  "temperatureReachedValueByText": "Temperature has <strong>reached the limit</strong>. Please review temperature and valve settings again. If temperature settings are not what you want, change temperature settings again."
 }

@@ -7,10 +7,19 @@
 }
 .logo {
   width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
+  height: 64px;
+  /* background: #ffffff; */
   margin: 7px 24px 7px 0;
   float: left;
+  text-align: center;
+}
+
+.logo > img {
+  max-height: 60px;
+}
+
+.logo-collapse > img {
+  max-height: 18px;
 }
 
 .menu-container-left {
@@ -40,4 +49,8 @@
 .ant-menu-item,
 .ant-menu-submenu-title {
   padding: 0 15px !important;
+}
+
+.menu-item-logout {
+  padding: 0px !important;
 }

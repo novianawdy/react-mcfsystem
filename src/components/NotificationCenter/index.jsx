@@ -9,9 +9,9 @@ import {
   message,
   Empty,
   Spin,
-  Icon,
-  Menu,
-  Dropdown
+  Icon
+  // Menu,
+  // Dropdown
 } from "antd";
 import styled from "styled-components";
 import moment from "moment";
@@ -57,7 +57,7 @@ class NotificationCenter extends React.Component {
 
   render() {
     const { loadMoreNotif, markAllNotifAsRead } = this.props;
-    const { notification_stack } = this.props.notification;
+    const { notification_stack, total_unview } = this.props.notification;
     const {
       loadingInit,
       loading,
@@ -67,13 +67,13 @@ class NotificationCenter extends React.Component {
     } = this.props.notification;
     const next_page = current_page + 1;
 
-    const menu = (
-      <Menu>
-        <Menu.Item key="1" onClick={() => markAllNotifAsRead()}>
-          {getLang({ id: "markAllAsRead" })}
-        </Menu.Item>
-      </Menu>
-    );
+    // const menu = (
+    //   <Menu>
+    //     <Menu.Item key="1" onClick={() => markAllNotifAsRead()}>
+    //       {getLang({ id: "markAllAsRead" })}
+    //     </Menu.Item>
+    //   </Menu>
+    // );
 
     const NotificationContent = (
       <NotificationWrapper>
@@ -84,9 +84,16 @@ class NotificationCenter extends React.Component {
             </NotificationTitle>
           </Col>
           <Col>
-            <Dropdown overlay={menu} trigger={["click"]}>
+            {/* <Dropdown overlay={menu} trigger={["click"]}>
               <Action icon="more" size="small" />
-            </Dropdown>
+            </Dropdown> */}
+            <Button
+              type="link"
+              onClick={() => markAllNotifAsRead()}
+              size="small"
+            >
+              {getLang({ id: "markAllAsRead" })}
+            </Button>
           </Col>
         </Row>
         <Divider style={{ margin: "12px 0" }} />
@@ -209,16 +216,19 @@ class NotificationCenter extends React.Component {
         visible={this.state.visibleNotification}
         onVisibleChange={this.handleNotification}
       >
-        <Notification onClick={this.handleNotification} />
+        <Notification
+          onClick={this.handleNotification}
+          unread={parseInt(total_unview)}
+        />
       </Popover>
     );
   }
 }
 
-const Action = styled(Button)`
-  border: none;
-  box-shadow: none;
-`;
+// const Action = styled(Button)`
+//   border: none;
+//   box-shadow: none;
+// `;
 
 const Close = styled(Button)`
   border: none;
@@ -242,8 +252,8 @@ const Close = styled(Button)`
 `;
 
 const NotificationWrapper = styled.div`
-  width: 350px;
-  max-width: ${(85 / 100) * window.innerWidth}px;
+  width: 410px;
+  max-width: ${(89 / 100) * window.innerWidth}px;
 `;
 const NotificationTitle = styled.div`
   /* height: 64px; */
@@ -271,7 +281,7 @@ const NotificationCard = (props = { title: "Info", content: "", time: "" }) => {
         <Row type="flex" justify="space-between" style={{ paddingLeft: 4 }}>
           <Col>
             <strong style={{ marginRight: "6px" }}>{title}</strong>
-            <strong style={{ marginRight: "6px" }}>•</strong>
+            {/* <strong style={{ marginRight: "6px" }}>•</strong> */}
             {time && (
               <span style={{ color: "#9e9e9e", fontSize: ".6em" }}>
                 <span>{moment(time).fromNow()}</span>

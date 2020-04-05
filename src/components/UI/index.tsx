@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Avatar, Row, Col, Tooltip, Icon } from "antd";
+import { Avatar, Row, Col, Tooltip, Icon, Badge } from "antd";
 import Number from "antd/lib/statistic/Number";
-import notifIcon from "../../assets/images/notification.svg";
+// import notifIcon from "../../assets/images/notification.svg";
 import themes from "../../settings/themes/themes";
 import getLang from "../../lib/getLang";
 import { TooltipPlacement } from "antd/lib/tooltip";
@@ -152,11 +152,12 @@ export class UserTitle extends React.Component<UserTitleProps> {
 
 type NotificationProps = {
   onClick?: () => void;
+  unread?: number;
 };
 
 export class Notification extends React.Component<NotificationProps> {
   render() {
-    const { onClick } = this.props;
+    const { onClick, unread } = this.props;
     const Pulse = styled.span`
       -webkit-text-size-adjust: 100%;
       -webkit-tap-highlight-color: transparent;
@@ -177,8 +178,8 @@ export class Notification extends React.Component<NotificationProps> {
       border-width: 3px;
       border-style: solid;
       border-color: #ffb822;
-      top: -9px;
-      left: -8px;
+      top: -4.5px;
+      left: -4px;
 
       @-webkit-keyframes kt-pulse {
         0% {
@@ -224,11 +225,26 @@ export class Notification extends React.Component<NotificationProps> {
     `;
     return (
       <div
-        style={{ display: "initial", position: "relative", cursor: "pointer" }}
+        style={{
+          display: "initial",
+          position: "relative",
+          cursor: "pointer",
+          marginRight: 14
+        }}
         onClick={onClick}
       >
         <Tooltip title={getLang({ id: "notification" })}>
-          <Avatar src={notifIcon} size="small" /> <Pulse />
+          <Badge count={unread}>
+            <Avatar
+              icon="bell"
+              shape="square"
+              style={{
+                backgroundColor: themes.themedefault.palette.secondary[0],
+                color: "#ffb822"
+              }}
+            />
+            {unread ? <Pulse /> : undefined}
+          </Badge>
         </Tooltip>
       </div>
     );

@@ -14,7 +14,8 @@ import {
   Button,
   Form,
   InputNumber,
-  message
+  message,
+  Popconfirm
 } from "antd";
 
 import action from "../../redux/setting/action";
@@ -192,18 +193,23 @@ class SettingForm extends Component {
                 </Title>
               </Col>
               <Col>
-                <Button
-                  style={{
-                    color: "#1890ff",
-                    backgroundColor: "transparent",
-                    border: 0,
-                    boxShadow: "none"
-                  }}
-                  onClick={this.handleSubmit}
-                  loading={loadingSubmit}
+                <Popconfirm
+                  onConfirm={this.handleSubmit}
+                  title={getLang({ id: "sureToSaveSetting" })}
                 >
-                  {getLang({ id: "save" })}
-                </Button>
+                  <Button
+                    // style={{
+                    //   color: "#1890ff",
+                    //   backgroundColor: "transparent",
+                    //   border: 0,
+                    //   boxShadow: "none"
+                    // }}
+                    type="primary"
+                    loading={loadingSubmit}
+                  >
+                    {getLang({ id: "save" })}
+                  </Button>
+                </Popconfirm>
               </Col>
             </Row>
 
@@ -336,7 +342,8 @@ class SettingForm extends Component {
                                     }
                                   />
                                 )}
-                              </Form.Item>
+                              </Form.Item>,
+                              <span>(°C)</span>
                             ]}
                           >
                             <List.Item.Meta

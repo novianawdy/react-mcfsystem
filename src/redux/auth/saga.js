@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import action from "./action";
-import { saveLocal, saveSession, apiPost } from "../../lib/helper";
+import { saveLocal, apiPost } from "../../lib/helper";
 import getLang from "../../lib/getLang";
 
 export function* loginRequest({ payload }) {
@@ -15,11 +15,12 @@ export function* loginRequest({ payload }) {
       localStorage.setItem("user", JSON.stringify(user));
 
       // saving bearer
-      if (body.remember) {
-        saveLocal("at", token);
-      } else {
-        saveSession("at", token);
-      }
+      saveLocal("at", token);
+      // if (body.remember) {
+      //   saveLocal("at", token);
+      // } else {
+      //   saveSession("at", token);
+      // }
 
       yield put({
         type: action.LOGIN_SUCCESS,

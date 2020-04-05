@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { List, Row, Col, Tag, Spin, Card, Typography, Divider } from "antd";
+import { List, Row, Col, Tag, Spin, Card, Typography } from "antd";
 import Number from "antd/lib/statistic/Number";
 import WindowScroller from "react-virtualized/dist/commonjs/WindowScroller";
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
@@ -43,7 +43,14 @@ class LogList extends Component {
     const item = logs[index];
     const prevItem = index === logs.length - 1 ? {} : logs[index + 1];
     return (
-      <List.Item key={key} style={style}>
+      <List.Item
+        key={key}
+        style={{
+          backgroundColor: index % 2 === 0 ? "#F5F7F8" : "#ffffff",
+          ...style
+        }}
+        className="content-row"
+      >
         <Row
           type="flex"
           justify="space-between"
@@ -72,7 +79,7 @@ class LogList extends Component {
                 decimalSeparator=","
                 groupSeparator="."
               />{" "}
-              mL/s <Anomali value={item.flow} prevValue={prevItem.flow} />
+              <Anomali value={item.flow} prevValue={prevItem.flow} />
             </Text>
           </Col>
 
@@ -95,7 +102,6 @@ class LogList extends Component {
                 decimalSeparator=","
                 groupSeparator="."
               />{" "}
-              °C{" "}
               <Anomali
                 value={item.temperature}
                 prevValue={prevItem.temperature}
@@ -233,9 +239,9 @@ class LogList extends Component {
                   textOverflow: "ellipsis",
                   overflow: "hidden"
                 }}
-                title={getLang({ id: "flow" })}
+                title={`${getLang({ id: "flow" })} mL/s`}
               >
-                <strong>{getLang({ id: "flow" })}</strong>
+                <strong>{getLang({ id: "flow" })} (mL/s)</strong>
               </Col>
 
               <Col
@@ -249,9 +255,9 @@ class LogList extends Component {
                   textOverflow: "ellipsis",
                   overflow: "hidden"
                 }}
-                title={getLang({ id: "temperature" })}
+                title={`${getLang({ id: "temperature" })} °C`}
               >
-                <strong>{getLang({ id: "temperature" })}</strong>
+                <strong>{getLang({ id: "temperature" })} (°C)</strong>
               </Col>
 
               <Col
@@ -272,7 +278,7 @@ class LogList extends Component {
             </Row>
           </List.Item>
         </List>
-        <Divider style={{ margin: 0 }} />
+        {/* <Divider style={{ margin: 0 }} /> */}
         <List>
           {logs.length > 0 && <WindowScroller>{infiniteLoader}</WindowScroller>}
         </List>

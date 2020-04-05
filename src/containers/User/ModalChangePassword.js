@@ -62,12 +62,14 @@ class ModalChangePasswordForm extends Component {
       <Modal
         visible={visible}
         title={getLang({ id: "changePassword" })}
-        onCancel={handleModal}
+        onCancel={() => {
+          this.props.form.resetFields();
+          return handleModal();
+        }}
         footer={
           <>
             <Button
               onClick={() => {
-                const { handleModal } = this.props;
                 this.props.form.resetFields();
                 return handleModal();
               }}
@@ -110,7 +112,13 @@ class ModalChangePasswordForm extends Component {
         <Form layout="vertical">
           <Form.Item label={getLang({ id: "yourPassword" })}>
             {getFieldDecorator("user_password", {
-              initialValue: undefined
+              initialValue: undefined,
+              rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                }
+              ]
             })(
               <Input.Password
                 placeholder={getLang({ id: "yourPassword" })}
@@ -123,6 +131,10 @@ class ModalChangePasswordForm extends Component {
             {getFieldDecorator("new_password", {
               initialValue: undefined,
               rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                },
                 {
                   validator: this.validateToNextPassword
                 }
@@ -139,6 +151,10 @@ class ModalChangePasswordForm extends Component {
             {getFieldDecorator("confirm_password", {
               initialValue: undefined,
               rules: [
+                {
+                  required: true,
+                  message: getLang({ id: "required" })
+                },
                 {
                   validator: this.compareToFirstPassword
                 }

@@ -15,6 +15,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import themes from "../../settings/themes/themes";
 import NotificationCenter from "../../components/NotificationCenter";
+import Logo from "../../assets/images/mcfsystem-transparent.png";
+import LogoWhite from "../../assets/images/mcfsystem-transparent-white.png";
 
 const { Header, Content, Footer } = Layout;
 const { changeLanguage, logoutRequest } = action;
@@ -110,10 +112,11 @@ class AppLayout extends React.Component<AppLayoutProps> {
 
         <Layout className="layout">
           <Header className="header">
-            {/* <div className="logo" /> */}
-            {/* <LogoText style={{ float: "left" }}>MCFSystem</LogoText> */}
             <Row type="flex" style={{ height: "100%" }}>
               <Col xs={0} sm={0} md={12} lg={12} xl={12}>
+                <div className="logo">
+                  <img src={LogoWhite} alt="MCFSystem" />
+                </div>
                 <div className="menu-container-left">
                   <Menu
                     theme="dark"
@@ -172,7 +175,16 @@ class AppLayout extends React.Component<AppLayoutProps> {
                     onClick={this.handleDrawerMenu}
                   />
                   <Drawer
-                    title={setting.appName}
+                    title={
+                      <Row type="flex" gutter={12}>
+                        <Col className="logo-collapse">
+                          <img src={Logo} alt="MCFSystem" />
+                        </Col>
+                        <Col>
+                          <span>{setting.appName}</span>
+                        </Col>
+                      </Row>
+                    }
                     visible={this.state.visibleDrawerMenu}
                     onClose={this.handleDrawerMenu}
                     placement="left"
@@ -260,7 +272,10 @@ class AppLayout extends React.Component<AppLayoutProps> {
                     style={{ border: "none" }}
                   >
                     <Menu.Divider style={{ marginTop: 20 }} />
-                    <Menu.Item onClick={logoutRequest} style={{ padding: 0 }}>
+                    <Menu.Item
+                      onClick={logoutRequest}
+                      className="menu-item-logout"
+                    >
                       {getLang({ id: "logout" })}
                     </Menu.Item>
                   </Menu>

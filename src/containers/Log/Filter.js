@@ -112,9 +112,12 @@ class FilterForm extends Component {
                     <Input
                       suffix={<Icon type="search" />}
                       style={{ width: "100%" }}
-                      placeholder={`${getLang({ id: "flow" })}, ${getLang({
+                      placeholder={`${getLang({
+                        id: "flow"
+                      })} (mL/s), ${getLang({
                         id: "temperature"
-                      })}`}
+                      })} (°C)`}
+                      // placeholder="30"
                       allowClear
                     />
                   )}
@@ -144,7 +147,7 @@ class FilterForm extends Component {
               </Col>
 
               <Col xs={16} sm={16} md={16} lg={17} xl={17}>
-                <Form.Item label={getLang({ id: "flow" })}>
+                <Form.Item label={`${getLang({ id: "flow" })} (mL/s)`}>
                   {getFieldDecorator("flow", {
                     initialValue: undefined
                   })(
@@ -152,6 +155,7 @@ class FilterForm extends Component {
                       suffix="mL/s"
                       style={{ width: "100%" }}
                       placeholder={getLang({ id: "flow" })}
+                      // placeholder="100"
                       allowClear
                       formatter={value =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -185,14 +189,15 @@ class FilterForm extends Component {
               </Col>
 
               <Col xs={16} sm={16} md={16} lg={17} xl={17}>
-                <Form.Item label={getLang({ id: "temperature" })}>
+                <Form.Item label={`${getLang({ id: "temperature" })} (°C)`}>
                   {getFieldDecorator("temperature", {
                     initialValue: undefined
                   })(
                     <InputNumber
                       suffix="mL/s"
                       style={{ width: "100%" }}
-                      placeholder={getLang({ id: "flow" })}
+                      placeholder={getLang({ id: "temperature" })}
+                      // placeholder="500"
                       allowClear
                       formatter={value =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")

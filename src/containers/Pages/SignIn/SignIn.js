@@ -1,7 +1,7 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Row, Col, Form, Input, Icon, Checkbox, Button, Modal } from "antd";
+import { Row, Col, Form, Input, Icon, Button, Modal } from "antd";
 import getLang from "../../../lib/getLang";
 
 import UserLayout from "../../../layouts/user/UserLayout";
@@ -86,7 +86,7 @@ class SignInForm extends React.Component {
               </Form.Item>
               <Form.Item>
                 <Row type="flex" justify="space-between">
-                  <Col span={12}>
+                  {/* <Col span={12}>
                     {getFieldDecorator("remember", {
                       valuePropName: "checked",
                       initialValue: false
@@ -96,7 +96,7 @@ class SignInForm extends React.Component {
                     <a href="/" className="login-form-forgot">
                       {getLang({ id: "forgotPassword" })}
                     </a>
-                  </Col>
+                  </Col> */}
                   <Col span={24}>
                     <Button
                       type="primary"
