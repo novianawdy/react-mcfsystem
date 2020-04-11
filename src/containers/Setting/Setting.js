@@ -15,7 +15,7 @@ import {
   Form,
   InputNumber,
   message,
-  Popconfirm
+  Popconfirm,
 } from "antd";
 
 import action from "../../redux/setting/action";
@@ -25,13 +25,13 @@ const {
   getSettingRequest,
   updateSettingRequest,
   clearSuccess,
-  clearError
+  clearError,
 } = action;
 
 class SettingForm extends Component {
   state = {
     activeMenuKey: null,
-    contents: []
+    contents: [],
   };
 
   componentDidMount = () => {
@@ -39,20 +39,20 @@ class SettingForm extends Component {
     getSettingRequest();
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     const { setting, success, error } = this.props.setting;
     const { clearSuccess, clearError } = this.props;
     const { activeMenuKey } = this.state;
     if (prevProps.setting.setting !== setting && setting && !activeMenuKey) {
       this.setState({
         activeMenuKey: "global_setting",
-        contents: setting.global_setting
+        contents: setting.global_setting,
       });
     }
 
     if (prevProps.setting.setting !== setting && setting && activeMenuKey) {
       this.setState({
-        contents: setting[activeMenuKey]
+        contents: setting[activeMenuKey],
       });
     }
 
@@ -78,24 +78,24 @@ class SettingForm extends Component {
     validateFields((error, values) => {
       if (!error) {
         let data = {
-          settings: []
+          settings: [],
         };
 
-        Object.keys(values).map(key => {
+        Object.keys(values).map((key) => {
           const value = values[key];
           if (typeof value === "boolean") {
             return data.settings.push({
               key,
               value: null,
               value_text: null,
-              value_decimal: value ? 1 : 0
+              value_decimal: value ? 1 : 0,
             });
           } else if (typeof value === "number") {
             return data.settings.push({
               key,
               value: null,
               value_text: null,
-              value_decimal: value
+              value_decimal: value,
             });
           }
 
@@ -116,7 +116,7 @@ class SettingForm extends Component {
       <Card
         style={{ margin: 16 }}
         bodyStyle={{
-          padding: 16
+          padding: 16,
         }}
       >
         <Row
@@ -138,7 +138,7 @@ class SettingForm extends Component {
                 selectedKeys={[activeMenuKey]}
                 style={{ height: "100%" }}
               >
-                {Object.keys(setting).map(key => {
+                {Object.keys(setting).map((key) => {
                   return (
                     <Menu.Item
                       key={key}
@@ -169,7 +169,7 @@ class SettingForm extends Component {
                   selectedKeys={[activeMenuKey]}
                   mode="horizontal"
                 >
-                  {Object.keys(setting).map(key => {
+                  {Object.keys(setting).map((key) => {
                     return (
                       <Menu.Item
                         key={key}
@@ -220,7 +220,7 @@ class SettingForm extends Component {
                     itemLayout="horizontal"
                     loading={loading}
                     dataSource={contents}
-                    renderItem={item => {
+                    renderItem={(item) => {
                       const { key, value_decimal } = item;
                       if (key === "solenoid") {
                         return (
@@ -231,7 +231,7 @@ class SettingForm extends Component {
                                   valuePropName: "checked",
                                   initialValue: parseInt(value_decimal)
                                     ? true
-                                    : false
+                                    : false,
                                 })(
                                   <Switch
                                     checkedChildren="On"
@@ -239,7 +239,7 @@ class SettingForm extends Component {
                                     loading={loadingSubmit}
                                   />
                                 )}
-                              </Form.Item>
+                              </Form.Item>,
                             ]}
                           >
                             <List.Item.Meta
@@ -258,15 +258,15 @@ class SettingForm extends Component {
                                   valuePropName: "checked",
                                   initialValue: parseInt(value_decimal)
                                     ? true
-                                    : false
+                                    : false,
                                 })(
                                   <Switch
                                     checkedChildren="On"
                                     unCheckedChildren="Off"
-                                    onChange={value => {
+                                    onChange={(value) => {
                                       if (!value) {
                                         return resetFields([
-                                          "notificate_on_temperature"
+                                          "notificate_on_temperature",
                                         ]);
                                       }
                                       return;
@@ -274,7 +274,7 @@ class SettingForm extends Component {
                                     loading={loadingSubmit}
                                   />
                                 )}
-                              </Form.Item>
+                              </Form.Item>,
                             ]}
                           >
                             <List.Item.Meta
@@ -293,15 +293,15 @@ class SettingForm extends Component {
                                   valuePropName: "checked",
                                   initialValue: parseFloat(value_decimal)
                                     ? true
-                                    : false
+                                    : false,
                                 })(
                                   <Switch
                                     checkedChildren="On"
                                     unCheckedChildren="Off"
-                                    onChange={value => {
+                                    onChange={(value) => {
                                       if (!value) {
                                         return resetFields([
-                                          "fake_temperature"
+                                          "fake_temperature",
                                         ]);
                                       }
                                       return;
@@ -309,7 +309,7 @@ class SettingForm extends Component {
                                     loading={loadingSubmit}
                                   />
                                 )}
-                              </Form.Item>
+                              </Form.Item>,
                             ]}
                           >
                             <List.Item.Meta
@@ -324,16 +324,16 @@ class SettingForm extends Component {
                             actions={[
                               <Form.Item style={{ margin: 0 }}>
                                 {getFieldDecorator(key, {
-                                  initialValue: parseFloat(value_decimal)
+                                  initialValue: parseFloat(value_decimal),
                                 })(
                                   <InputNumber
-                                    formatter={value =>
+                                    formatter={(value) =>
                                       `${value}`.replace(
                                         /\B(?=(\d{3})+(?!\d))/g,
                                         ","
                                       )
                                     }
-                                    parser={value =>
+                                    parser={(value) =>
                                       value.replace(/\$\s?|(,*)/g, "")
                                     }
                                     disabled={
@@ -343,7 +343,7 @@ class SettingForm extends Component {
                                   />
                                 )}
                               </Form.Item>,
-                              <span>(°C)</span>
+                              <span>(°C)</span>,
                             ]}
                           >
                             <List.Item.Meta
@@ -358,16 +358,16 @@ class SettingForm extends Component {
                             actions={[
                               <Form.Item style={{ margin: 0 }}>
                                 {getFieldDecorator(key, {
-                                  initialValue: parseFloat(value_decimal)
+                                  initialValue: parseFloat(value_decimal),
                                 })(
                                   <InputNumber
-                                    formatter={value =>
+                                    formatter={(value) =>
                                       `${value}`.replace(
                                         /\B(?=(\d{3})+(?!\d))/g,
                                         ","
                                       )
                                     }
-                                    parser={value =>
+                                    parser={(value) =>
                                       value.replace(/\$\s?|(,*)/g, "")
                                     }
                                     disabled={
@@ -376,7 +376,7 @@ class SettingForm extends Component {
                                     }
                                   />
                                 )}
-                              </Form.Item>
+                              </Form.Item>,
                             ]}
                           >
                             <List.Item.Meta
@@ -409,16 +409,16 @@ class SettingForm extends Component {
 
 const Setting = Form.create({ name: "setting_form" })(SettingForm);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  setting: state.setting
+  setting: state.setting,
 });
 
 const mapDispatchToProps = {
   getSettingRequest,
   updateSettingRequest,
   clearSuccess,
-  clearError
+  clearError,
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Setting);

@@ -13,6 +13,7 @@
   "pageNotExist": "Sorry, the page you visited does not exist.",
   "backHome": "Back Home",
   "required": "Required",
+  "alertSound": "Alert Sound",
 
   "dashboard": "Dashboard",
   "notification": "Notification",
@@ -93,5 +94,8 @@
   "profileChangedByText": "Profile have just been changed by <strong>{username}</strong>. Please check your new profile. If profile are not what you want, you can make a request to change it again.",
   "temperatureReached": "Temperature Reached Limit",
   "temperatureReachedValue": "Temperature has <strong>reached the limit</strong>.",
-  "temperatureReachedValueByText": "Temperature has <strong>reached the limit</strong>. Please review temperature and valve settings again. If temperature settings are not what you want, change temperature settings again."
+  "temperatureReachedValueByText": "Temperature has <strong>reached the limit</strong>. Please review temperature and valve settings again. If temperature settings are not what you want, change temperature settings again.",
+  "temperatureReachedValueModalSolenoid": "Temperature has <strong>reached the limit</strong>. Valve is <strong>still open</strong> please click <strong>OK</strong> to set <strong>valve</strong> and <strong>custom temperature</strong> value.",
+  "temperatureReachedValueModal": "Temperature has <strong>reached the limit</strong>. Please click <strong>OK</strong> to set <strong>custom temperature</strong> value.",
+  "sureSolenoidStillOpen": "Are you sure to leave valve <strong>still open</strong>?"
 }

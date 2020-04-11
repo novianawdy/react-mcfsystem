@@ -13,6 +13,7 @@
   "pageNotExist": "Maaf, halaman yang Anda kunjungi tidak ada.",
   "backHome": "Kembali ke Beranda",
   "required": "Wajib",
+  "alertSound": "Suara Peringatan",
 
   "dashboard": "Beranda",
   "notification": "Notifikasi",
@@ -93,5 +94,8 @@
   "profileChangedByText": "Profil baru saja diubah oleh <strong>{username}</strong>. Mohon lihat kembali profil Anda yang baru. Apabila profil tidak sesuai dengan yang Anda inginkan, Anda dapat meminta untuk mengubahnya kembali.",
   "temperatureReached": "Suhu Mencapai Batas",
   "temperatureReachedValue": "Suhu baru saja <strong>mencapai batas</strong>.",
-  "temperatureReachedValueText": "Suhu baru saja <strong>mencapai batas</strong>. Mohon lihat kembali pengaturan suhu dan katup. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut."
+  "temperatureReachedValueText": "Suhu baru saja <strong>mencapai batas</strong>. Mohon lihat kembali pengaturan suhu dan katup. Apabila pengaturan suhu tidak sesuai dengan yang Anda inginkan, silakan ubah kembali pengaturan suhu tersebut.",
+  "temperatureReachedValueModalSolenoid": "Suhu baru saja <strong>mencapai batas</strong>. Katup <strong>masih terbuka</strong> silakan klik <strong>OK</strong> untuk mengatur <strong>katup</strong> dan nilai <strong>suhu buatan</strong>.",
+  "temperatureReachedValueModal": "Suhu baru saja <strong>mencapai batas</strong>. Silakan klik <strong>OK</strong> untuk mengatur nilai <strong>suhu buatan</strong>.",
+  "sureSolenoidStillOpen": "Apakah Anda yakin membiarkan katup <strong>tetap terbuka</strong>?"
 }

@@ -5,12 +5,12 @@ const initState = {
     ? JSON.parse(localStorage.getItem("setting"))
     : {
         global_setting: [],
-        mock_setting: []
+        mock_setting: [],
       },
   loading: true,
   loadingSubmit: false,
   success: undefined,
-  error: undefined
+  error: undefined,
 };
 
 export default function settingReducer(state = initState, dispatch) {
@@ -18,46 +18,63 @@ export default function settingReducer(state = initState, dispatch) {
     case action.GET_SETTING_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case action.GET_SETTING_SUCCESS:
       return {
         ...state,
         loading: false,
-        setting: dispatch.setting
+        setting: dispatch.setting,
       };
     case action.GET_SETTING_ERROR:
       return {
         ...state,
         loading: false,
-        error: dispatch.error.message
+        error: dispatch.error.message,
       };
     case action.UPDATE_SETTING_REQUEST:
       return {
         ...state,
-        loadingSubmit: true
+        loadingSubmit: true,
       };
     case action.UPDATE_SETTING_SUCCESS:
       return {
         ...state,
         loadingSubmit: false,
-        success: dispatch.success.message
+        success: dispatch.success.message,
       };
     case action.UPDATE_SETTING_ERROR:
       return {
         ...state,
         loadingSubmit: false,
-        error: dispatch.error.message
+        error: dispatch.error.message,
+      };
+    case action.UPDATE_SETTING_MIX_REQUEST:
+      return {
+        ...state,
+        loadingSubmit: true,
+      };
+    case action.UPDATE_SETTING_MIX_SUCCESS:
+      return {
+        ...state,
+        loadingSubmit: false,
+        success: dispatch.success.message,
+      };
+    case action.UPDATE_SETTING_MIX_ERROR:
+      return {
+        ...state,
+        loadingSubmit: false,
+        error: dispatch.error.message,
       };
     case action.CLEAR_SUCCESS:
       return {
         ...state,
-        success: undefined
+        success: undefined,
       };
     case action.CLEAR_ERROR:
       return {
         ...state,
-        error: undefined
+        error: undefined,
       };
     default:
       return state;

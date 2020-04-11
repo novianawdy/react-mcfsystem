@@ -13,23 +13,23 @@ export function* getSettingRequest() {
 
       yield put({
         type: action.GET_SETTING_SUCCESS,
-        setting
+        setting,
       });
     } else if (response && response.status === "fail") {
       yield put({
         type: action.GET_SETTING_ERROR,
-        error: response
+        error: response,
       });
     } else {
       yield put({
         type: action.GET_SETTING_ERROR,
-        error: { message: getLang({ id: "checkInternet" }) }
+        error: { message: getLang({ id: "checkInternet" }) },
       });
     }
   } catch (e) {
     yield put({
       type: action.GET_SETTING_ERROR,
-      error: { message: getLang({ id: "checkInternet" }) }
+      error: { message: getLang({ id: "checkInternet" }) },
     });
   }
 }
@@ -44,27 +44,62 @@ export function* updateSettingRequest({ payload }) {
       yield all([
         put({
           type: action.UPDATE_SETTING_SUCCESS,
-          success: { message: getLang({ id: "setting.successUpdate" }) }
+          success: { message: getLang({ id: "setting.successUpdate" }) },
         }),
         put({
-          type: action.GET_SETTING_REQUEST
-        })
+          type: action.GET_SETTING_REQUEST,
+        }),
       ]);
     } else if (response && response.status === "fail") {
       yield put({
         type: action.UPDATE_SETTING_ERROR,
-        error: response
+        error: response,
       });
     } else {
       yield put({
         type: action.UPDATE_SETTING_ERROR,
-        error: { message: getLang({ id: "checkInternet" }) }
+        error: { message: getLang({ id: "checkInternet" }) },
       });
     }
   } catch (e) {
     yield put({
       type: action.UPDATE_SETTING_ERROR,
-      error: { message: getLang({ id: "checkInternet" }) }
+      error: { message: getLang({ id: "checkInternet" }) },
+    });
+  }
+}
+
+export function* updateSettingMixRequest({ payload }) {
+  const { body } = payload;
+
+  const response = yield call(apiPut, "settings/bulk-update-mix", body);
+
+  try {
+    if (response && response.status === "success") {
+      yield all([
+        put({
+          type: action.UPDATE_SETTING_MIX_SUCCESS,
+          success: { message: getLang({ id: "setting.successUpdate" }) },
+        }),
+        put({
+          type: action.GET_SETTING_REQUEST,
+        }),
+      ]);
+    } else if (response && response.status === "fail") {
+      yield put({
+        type: action.UPDATE_SETTING_MIX_ERROR,
+        error: response,
+      });
+    } else {
+      yield put({
+        type: action.UPDATE_SETTING_MIX_ERROR,
+        error: { message: getLang({ id: "checkInternet" }) },
+      });
+    }
+  } catch (e) {
+    yield put({
+      type: action.UPDATE_SETTING_MIX_ERROR,
+      error: { message: getLang({ id: "checkInternet" }) },
     });
   }
 }
@@ -72,6 +107,7 @@ export function* updateSettingRequest({ payload }) {
 export default function* rootSaga() {
   yield all([
     takeLatest(action.GET_SETTING_REQUEST, getSettingRequest),
-    takeLatest(action.UPDATE_SETTING_REQUEST, updateSettingRequest)
+    takeLatest(action.UPDATE_SETTING_REQUEST, updateSettingRequest),
+    takeLatest(action.UPDATE_SETTING_MIX_REQUEST, updateSettingMixRequest),
   ]);
 }

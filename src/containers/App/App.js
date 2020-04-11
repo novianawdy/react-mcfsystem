@@ -21,18 +21,23 @@ import notifActions from "../../redux/notification/action";
 import settingActions from "../../redux/setting/action";
 import authActions from "../../redux/auth/action";
 import { auth } from "../../lib/helper";
+import ModalTemperature from "./ModalTemperature";
 
 const {
   initNotif,
   newNotif,
   addNotif,
   clearFlashNotif,
-  setOpenedNotif
+  setOpenedNotif,
 } = notifActions;
 const { setSetting } = settingActions;
 const { setUserData } = authActions;
 
 class App extends Component {
+  state = {
+    visible: false,
+  };
+
   componentDidMount = () => {
     const { user } = this.props.auth;
     const { initNotif, newNotif, addNotif } = this.props;
@@ -51,8 +56,13 @@ class App extends Component {
       // ketika user bukan user yang sedang mengubah
       // maka akan menampilkan notifikasi
       if (data && data.payload && data.payload.token !== `Bearer ${auth()}`) {
-        newNotif(data.notification);
-        this.updateReducer(data);
+        // HIDE_POPUP
+        if (data.notification.type === 5 && this.state.visible) {
+          this.handleModalTemperature();
+        } else {
+          newNotif(data.notification);
+          this.updateReducer(data);
+        }
       }
 
       // ketika user merupakan user yang sedang mengubah
@@ -62,8 +72,14 @@ class App extends Component {
         data.payload &&
         data.payload.token === `Bearer ${auth()}`
       ) {
-        addNotif(data.notification);
-        this.updateReducer(data);
+        // HIDE_POPUP
+        if (data.notification.type === 5 && this.state.visible) {
+          this.handleModalTemperature();
+          this.updateReducer(data);
+        } else {
+          addNotif(data.notification);
+          this.updateReducer(data);
+        }
       }
     });
   };
@@ -86,7 +102,7 @@ class App extends Component {
     console.log(`disconnecting pusher:`, this.pusher);
   };
 
-  updateReducer = data => {
+  updateReducer = (data) => {
     const { notification, payload } = data;
     const { type } = notification;
     const { setSetting, setUserData } = this.props;
@@ -111,12 +127,17 @@ class App extends Component {
         localStorage.setItem("setting", JSON.stringify(payload.setting));
         setSetting(payload.setting);
         break;
+      // Hide Popup
+      case 5:
+        localStorage.setItem("setting", JSON.stringify(payload.setting));
+        setSetting(payload.setting);
+        break;
       default:
         break;
     }
   };
 
-  showNotification = flash_notification => {
+  showNotification = (flash_notification) => {
     const { clearFlashNotif } = this.props;
     const { type, related_user } = flash_notification;
     const { username } = related_user ? related_user : {};
@@ -128,14 +149,14 @@ class App extends Component {
           dangerouslySetInnerHTML={{
             __html: getLang({
               id: flash_notification.body,
-              values: { username: username }
-            })
+              values: { username: username },
+            }),
           }}
         />
       ),
       icon: undefined,
-      duration: flash_notification.type === 1 ? 20 : 4.5,
-      top: 96
+      // duration: flash_notification.type === 1 ? 20 : 4.5,
+      top: 96,
     };
 
     switch (type) {
@@ -143,6 +164,7 @@ class App extends Component {
       case 1:
         notifConfig.icon = <Icon type="fire" style={{ color: "#f5222d" }} />;
         notification.error(notifConfig);
+        this.setState({ visible: true });
         break;
       // Profile Change
       case 2:
@@ -166,6 +188,10 @@ class App extends Component {
     }
 
     clearFlashNotif();
+  };
+
+  handleModalTemperature = () => {
+    this.setState({ visible: !this.state.visible });
   };
 
   render() {
@@ -192,8 +218,12 @@ class App extends Component {
                   title="MCFSystem"
                   location={location}
                   auth={auth}
-                  onClickMenu={pathname => (location.pathname = pathname)}
+                  onClickMenu={(pathname) => (location.pathname = pathname)}
                 >
+                  <ModalTemperature
+                    visible={this.state.visible}
+                    handleModal={this.handleModalTemperature}
+                  />
                   <Switch>
                     {appRoutes.map((data, key) => {
                       if (
@@ -216,7 +246,7 @@ class App extends Component {
 
                     <Route
                       path="*"
-                      render={props => (
+                      render={(props) => (
                         <Result
                           status="404"
                           title="404"
@@ -244,10 +274,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-    notification: state.notification
+    notification: state.notification,
   };
 };
 
@@ -258,7 +288,7 @@ const mapDispatchToProps = {
   clearFlashNotif,
   setOpenedNotif,
   setSetting,
-  setUserData
+  setUserData,
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(App);
