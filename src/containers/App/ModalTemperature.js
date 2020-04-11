@@ -107,7 +107,7 @@ class ModalTemperatureForm extends Component {
     const { getFieldDecorator, getFieldValue } = this.props.form;
     const solenoid = parseFloat(
       global_setting.find((setting) => setting.key === "solenoid")
-        .value_decimal || 0
+        ?.value_decimal || 0
     );
 
     const okButton =
