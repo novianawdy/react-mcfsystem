@@ -16,8 +16,8 @@ import { connect } from "react-redux";
 import { Howl } from "howler";
 
 import getLang from "../../lib/getLang";
-import soundFile from "../../assets/sounds/red_alert.mp3";
 import action from "../../redux/setting/action";
+import setting from "../../settings/setting";
 
 const { updateSettingMixRequest } = action;
 
@@ -27,8 +27,9 @@ class ModalTemperatureForm extends Component {
   };
 
   sound = new Howl({
-    src: [soundFile],
+    src: `${setting.baseUrl}/assets/audio/red_alert.mp3`,
     loop: true,
+    preload: true,
   });
 
   componentDidUpdate = (prevProps) => {
