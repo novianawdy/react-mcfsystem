@@ -27,7 +27,7 @@ class ModalTemperatureForm extends Component {
   };
 
   sound = new Howl({
-    src: `${setting.baseUrl}/assets/audio/red_alert.mp3`,
+    src: `${setting.baseUrl}assets/audio/red_alert.mp3`,
     loop: true,
     preload: true,
   });
