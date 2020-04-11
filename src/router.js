@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 
 import asyncComponent from "./lib/asyncComponent";
 import { getLocal, getSession } from "./lib/helper";
@@ -11,7 +11,7 @@ const RestrictedRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         bearer ? <Component {...props} /> : <Redirect to="/" />
       }
     />
@@ -23,7 +23,7 @@ const OpenRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         !bearer ? <Component {...props} /> : <Redirect to="/app/dashboard" />
       }
     />
@@ -31,7 +31,7 @@ const OpenRoute = ({ component: Component, ...rest }) => {
 };
 
 const Routes = ({ history }) => (
-  <BrowserRouter>
+  <HashRouter>
     <Switch>
       <OpenRoute
         exact
@@ -52,7 +52,7 @@ const Routes = ({ history }) => (
 
       <Route
         path="*"
-        render={props => (
+        render={(props) => (
           <Result
             status="404"
             title="404"
@@ -68,7 +68,7 @@ const Routes = ({ history }) => (
         )}
       />
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export const appRoutes = [
@@ -78,27 +78,27 @@ export const appRoutes = [
     breadcrumbs: [
       {
         path: "/dashboard",
-        name: "dashboard"
-      }
+        name: "dashboard",
+      },
     ],
-    component: asyncComponent(() => import("./containers/Dashboard/Dashboard"))
+    component: asyncComponent(() => import("./containers/Dashboard/Dashboard")),
   },
   {
     path: "/logs",
     name: "log",
-    component: asyncComponent(() => import("./containers/Log/Log"))
+    component: asyncComponent(() => import("./containers/Log/Log")),
   },
   {
     path: "/users",
     name: "user",
     component: asyncComponent(() => import("./containers/User/User")),
-    role: [1]
+    role: [1],
   },
   {
     path: "/settings",
     name: "setting",
-    component: asyncComponent(() => import("./containers/Setting/Setting"))
-  }
+    component: asyncComponent(() => import("./containers/Setting/Setting")),
+  },
 ];
 
 export default Routes;

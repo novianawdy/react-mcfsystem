@@ -14,7 +14,7 @@ import setting, { themeConfig, pusherSetting } from "../../settings/setting";
 import { appRoutes } from "../../router";
 import AppLayout from "../../layouts/app/AppLayout";
 import { Switch, Route } from "react-router";
-import { BrowserRouter, Link } from "react-router-dom";
+import { HashRouter, Link } from "react-router-dom";
 import getLang from "../../lib/getLang";
 
 import notifActions from "../../redux/notification/action";
@@ -213,7 +213,7 @@ class App extends Component {
         >
           <ThemeProvider theme={themes[themeConfig.theme]}>
             <Provider store={store}>
-              <BrowserRouter>
+              <HashRouter>
                 <AppLayout
                   title="MCFSystem"
                   location={location}
@@ -265,7 +265,7 @@ class App extends Component {
                     />
                   </Switch>
                 </AppLayout>
-              </BrowserRouter>
+              </HashRouter>
             </Provider>
           </ThemeProvider>
         </IntlProvider>

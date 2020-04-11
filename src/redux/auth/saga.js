@@ -25,23 +25,23 @@ export function* loginRequest({ payload }) {
       yield put({
         type: action.LOGIN_SUCCESS,
         bearer: token,
-        user
+        user,
       });
     } else if (response && response.status === "fail") {
       yield put({
         type: action.LOGIN_ERROR,
-        error: response
+        error: response,
       });
     } else {
       yield put({
         type: action.LOGIN_ERROR,
-        error: { message: getLang({ id: "checkInternet" }) }
+        error: { message: getLang({ id: "checkInternet" }) },
       });
     }
   } catch (e) {
     yield put({
       type: action.LOGIN_ERROR,
-      error: { message: getLang({ id: "checkInternet" }) }
+      error: { message: getLang({ id: "checkInternet" }) },
     });
   }
 }
@@ -54,16 +54,16 @@ export function* logoutRequest() {
   sessionStorage.clear();
   localStorage.setItem("language", language);
 
-  window.location.replace("/");
+  window.location.replace("./");
 
   yield put({
-    type: action.LOGOUT_SUCCESS
+    type: action.LOGOUT_SUCCESS,
   });
 }
 
 export default function* rootSaga() {
   yield all([
     takeLatest(action.LOGIN_REQUEST, loginRequest),
-    takeLatest(action.LOGOUT_REQUEST, logoutRequest)
+    takeLatest(action.LOGOUT_REQUEST, logoutRequest),
   ]);
 }
