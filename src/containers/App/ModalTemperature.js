@@ -29,7 +29,6 @@ class ModalTemperatureForm extends Component {
   sound = new Howl({
     src: [soundFile],
     loop: true,
-    preload: true,
   });
 
   componentDidUpdate = (prevProps) => {
