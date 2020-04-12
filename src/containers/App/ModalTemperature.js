@@ -27,15 +27,9 @@ class ModalTemperatureForm extends Component {
   };
 
   sound = new Howl({
-    src: `${setting.baseUrl}assets/audio/red_alert.mp3`,
+    src: `${setting.baseUrl}api/notifications/audio`,
     loop: true,
     preload: true,
-    xhrHeaders: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE",
-      "Access-Control-Allow-Headers":
-        "Content-Type, Accept, Authorization, X-Requested-With, Application",
-    },
   });
 
   componentDidUpdate = (prevProps) => {
