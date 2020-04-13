@@ -29,7 +29,7 @@ class ModalTemperatureForm extends Component {
 
   componentDidMount = () => {
     this.sound = new Howl({
-      src: "sound.mcfsystem.hostkulo.com/red_alert.mp3",
+      src: "http://sound.mcfsystem.hostkulo.com/red_alert.mp3",
       loop: true,
       preload: true,
     });
