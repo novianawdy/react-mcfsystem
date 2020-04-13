@@ -33,7 +33,7 @@ class ModalTemperatureForm extends Component {
       loop: true,
       preload: true,
       onplayerror: function () {
-        this.sound.once("unlock", function () {
+        this.sound.on("unlock", function () {
           this.sound.play();
         });
       },
