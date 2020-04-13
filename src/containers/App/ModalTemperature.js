@@ -31,12 +31,6 @@ class ModalTemperatureForm extends Component {
     this.sound = new Howl({
       src: "http://sound.mcfsystem.hostkulo.com/red_alert.mp3",
       loop: true,
-      preload: true,
-      onplayerror: function () {
-        this.sound.on("unlock", function () {
-          this.sound.play();
-        });
-      },
     });
   };
 
