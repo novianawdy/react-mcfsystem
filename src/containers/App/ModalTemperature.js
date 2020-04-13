@@ -17,7 +17,6 @@ import { Howl } from "howler";
 
 import getLang from "../../lib/getLang";
 import action from "../../redux/setting/action";
-import setting from "../../settings/setting";
 
 const { updateSettingMixRequest } = action;
 
@@ -26,11 +25,15 @@ class ModalTemperatureForm extends Component {
     alertSound: true,
   };
 
-  sound = new Howl({
-    src: `${setting.baseUrl}api/notifications/audio`,
-    loop: true,
-    preload: true,
-  });
+  sound = null;
+
+  componentDidMount = () => {
+    this.sound = new Howl({
+      src: "sound.mcfsystem.hostkulo.com/red_alert.mp3",
+      loop: true,
+      preload: true,
+    });
+  };
 
   componentDidUpdate = (prevProps) => {
     const { visible } = this.props;
