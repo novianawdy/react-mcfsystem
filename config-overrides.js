@@ -3,33 +3,33 @@ const {
   fixBabelImports,
   addLessLoader,
   addWebpackPlugin,
-  addWebpackModuleRule
+  addWebpackModuleRule,
 } = require("customize-cra");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const build = false;
+const build = true;
 
 if (build) {
   module.exports = override(
     fixBabelImports("import", {
       libraryName: "antd",
       libraryDirectory: "es",
-      style: true
+      style: true,
     }),
     addLessLoader({
       javascriptEnabled: true,
       modifyVars: {
         "@primary-color": "#374afb",
-        "@layout-header-background": "#1E1D2E"
+        "@layout-header-background": "#1E1D2E",
         // "@font-family": "Poppins,Helvetica,sans-serif"
-      }
+      },
     }),
 
     /** Enable ketika ingin build  */
     addWebpackPlugin(new MiniCssExtractPlugin()),
     addWebpackModuleRule({
       test: /\.css$/i,
-      use: [MiniCssExtractPlugin.loader, "css-loader"]
+      use: [MiniCssExtractPlugin.loader, "css-loader"],
     })
   );
 } else {
@@ -37,15 +37,15 @@ if (build) {
     fixBabelImports("import", {
       libraryName: "antd",
       libraryDirectory: "es",
-      style: true
+      style: true,
     }),
     addLessLoader({
       javascriptEnabled: true,
       modifyVars: {
         "@primary-color": "#374afb",
-        "@layout-header-background": "#1E1D2E"
+        "@layout-header-background": "#1E1D2E",
         // "@font-family": "Poppins,Helvetica,sans-serif"
-      }
+      },
     })
   );
 }
