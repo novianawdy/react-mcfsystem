@@ -132,6 +132,11 @@ class App extends Component {
         localStorage.setItem("setting", JSON.stringify(payload.setting));
         setSetting(payload.setting);
         break;
+      // Temperature Change
+      case 6:
+        localStorage.setItem("setting", JSON.stringify(payload.setting));
+        setSetting(payload.setting);
+        break;
       default:
         break;
     }
@@ -181,6 +186,11 @@ class App extends Component {
       // Setting Change
       case 4:
         notifConfig.icon = <Icon type="control" style={{ color: "#52c41a" }} />;
+        notification.success(notifConfig);
+        break;
+      // Temperature Change
+      case 6:
+        notifConfig.icon = <Icon type="control" style={{ color: "#f5222d" }} />;
         notification.success(notifConfig);
         break;
       default:

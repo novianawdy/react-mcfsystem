@@ -43,7 +43,7 @@ class ModalTemperatureForm extends Component {
     const { visible } = this.props;
     if (prevProps.visible !== visible && visible) {
       this.sound.play();
-      this.sound.once("playerror", function () {
+      this.sound.on("playerror", function () {
         this.sound.once("unlock", function () {
           this.sound.play();
         });
@@ -52,6 +52,7 @@ class ModalTemperatureForm extends Component {
 
     if (prevProps.visible !== visible && !visible) {
       this.sound.stop();
+      this.setState({ alertSound: true });
     }
   };
 
