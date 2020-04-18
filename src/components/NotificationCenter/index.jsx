@@ -9,7 +9,7 @@ import {
   message,
   Empty,
   Spin,
-  Icon
+  Icon,
   // Menu,
   // Dropdown
 } from "antd";
@@ -29,12 +29,12 @@ const {
   loadMoreNotif,
   markAllNotifAsRead,
   clearSuccess,
-  clearError
+  clearError,
 } = action;
 
 class NotificationCenter extends React.Component {
   state = {
-    visibleNotification: false
+    visibleNotification: false,
   };
 
   componentDidUpdate = () => {
@@ -63,7 +63,7 @@ class NotificationCenter extends React.Component {
       loading,
       current_page,
       last_page,
-      show_unread_only
+      show_unread_only,
     } = this.props.notification;
     const next_page = current_page + 1;
 
@@ -157,6 +157,15 @@ class NotificationCenter extends React.Component {
                         />
                       );
                       break;
+                    // Temperature Change
+                    case 6:
+                      icon = (
+                        <Icon
+                          type="control"
+                          style={{ marginRight: 6, color: "#f5222d" }}
+                        />
+                      );
+                      break;
                     default:
                       break;
                   }
@@ -171,7 +180,7 @@ class NotificationCenter extends React.Component {
                       }
                       content={getLang({
                         id: notification.body,
-                        values: { username: username }
+                        values: { username: username },
                       })}
                       time={notification.created_at}
                       onClose={() => {
@@ -267,7 +276,7 @@ const NotificationCard = (props = { title: "Info", content: "", time: "" }) => {
   return (
     <div
       style={{
-        marginBottom: 12
+        marginBottom: 12,
       }}
     >
       <div
@@ -275,7 +284,7 @@ const NotificationCard = (props = { title: "Info", content: "", time: "" }) => {
           padding: "12px 12px",
           background: "#f7f7f7",
           borderRadius: 6,
-          border: 0
+          border: 0,
         }}
       >
         <Row type="flex" justify="space-between" style={{ paddingLeft: 4 }}>
@@ -334,7 +343,7 @@ const NotificationSpinner = (props = { position: "top" }) => {
         {
           position: "absolute",
           textAlign: "center",
-          width: "100%"
+          width: "100%",
         },
         config
       )}
@@ -344,8 +353,8 @@ const NotificationSpinner = (props = { position: "top" }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  notification: state.notification
+const mapStateToProps = (state) => ({
+  notification: state.notification,
 });
 
 const mapDispatchToProps = {
@@ -353,7 +362,7 @@ const mapDispatchToProps = {
   loadMoreNotif,
   markAllNotifAsRead,
   clearSuccess,
-  clearError
+  clearError,
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(
