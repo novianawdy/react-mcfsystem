@@ -7,7 +7,7 @@ const setting = {
   appDescription: "Monitoring and Controlling Fluid System",
   footer: "Monitoring and Controlling Fluid System ©2020",
   language: "ID",
-  build: false
+  build: false,
 };
 
 export const pusherSetting = {
@@ -18,13 +18,22 @@ export const pusherSetting = {
   auth: {
     headers: {
       Authorization: `Bearer ${auth()}`,
-      Accept: "application/json"
-    }
-  }
+      Accept: "application/json",
+    },
+  },
+};
+
+export const mqttSetting = {
+  host: "ws://34.70.45.52",
+  options: {
+    clientId: "MCFSystem_client",
+    port: 1884,
+  },
+  topics: ["monitoring"],
 };
 
 export const themeConfig = {
-  theme: "themedefault"
+  theme: "themedefault",
 };
 
 export default setting;
