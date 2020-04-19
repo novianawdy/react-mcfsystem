@@ -20,6 +20,8 @@
   "flow": "Flow",
   "temperature": "Temperature",
   "solenoid": "Valve",
+  "useRealData": "Real Data",
+  "help.switchChartData": "Show data from sensor",
 
   "log": "Log",
   "log.subtitle": "Display {total} data",

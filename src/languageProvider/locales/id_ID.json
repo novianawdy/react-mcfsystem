@@ -20,6 +20,8 @@
   "flow": "Aliran",
   "temperature": "Suhu",
   "solenoid": "Katup",
+  "useRealData": "Data Asli",
+  "help.switchChartData": "Menampilkan data dari sensor",
 
   "log": "Log",
   "log.subtitle": "Menampilkan {total} data",
