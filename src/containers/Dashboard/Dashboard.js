@@ -40,11 +40,15 @@ class Dashboard extends Component {
 
   componentWillUnmount = () => {
     window.clearInterval(this.interval);
+    if (this.client.connected) {
+      this.unsubscribeData();
+    }
   };
 
   subscribeData = () => {
+    const { bearer } = this.props.auth;
     const { host, options } = mqttSetting;
-    this.client = mqtt.connect(host, options);
+    this.client = mqtt.connect(host, options(bearer));
     this.client.on("connect", this.onConnect);
     this.client.on("reconnect", this.subscribeData);
     this.client.on("error", this.onError);

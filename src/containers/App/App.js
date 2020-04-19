@@ -39,11 +39,14 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    const { user } = this.props.auth;
+    const { user, bearer } = this.props.auth;
     const { initNotif, newNotif, addNotif } = this.props;
     initNotif(true);
 
-    this.pusher = new Pusher("08bc04087062ea175b28f2eba6f03552", pusherSetting);
+    this.pusher = new Pusher(
+      "08bc04087062ea175b28f2eba6f03552",
+      pusherSetting(bearer)
+    );
 
     this.userChannel = this.pusher.subscribe(
       `private-notification.${user ? user.id : ""}`
