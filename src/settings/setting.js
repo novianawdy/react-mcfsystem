@@ -1,5 +1,3 @@
-import { auth } from "../lib/helper";
-
 const setting = {
   baseUrl: "http://api.mcfsystem.hostkulo.com/",
   wsserver: "api.mcfsystem.hostkulo.com",
@@ -10,25 +8,25 @@ const setting = {
   build: false,
 };
 
-export const pusherSetting = {
+export const pusherSetting = (token) => ({
   wsHost: setting.wsserver,
   wsPort: 6001,
   authTransport: "ajax",
   authEndpoint: `${setting.baseUrl}broadcasting/auth`,
   auth: {
     headers: {
-      Authorization: `Bearer ${auth()}`,
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
   },
-};
+});
 
 export const mqttSetting = {
   host: "ws://34.70.45.52",
-  options: {
-    clientId: "MCFSystem_client",
+  options: (id) => ({
+    clientId: `MCFSystem_client.${id}`,
     port: 1884,
-  },
+  }),
   topics: ["monitoring"],
 };
 
