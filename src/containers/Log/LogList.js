@@ -47,7 +47,7 @@ class LogList extends Component {
         key={key}
         style={{
           backgroundColor: index % 2 === 0 ? "#F5F7F8" : "#ffffff",
-          ...style
+          ...style,
         }}
         className="content-row"
       >
@@ -69,7 +69,7 @@ class LogList extends Component {
             style={{
               display: "block",
               textOverflow: "ellipsis",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
             <Text>
@@ -92,7 +92,7 @@ class LogList extends Component {
             style={{
               display: "block",
               textOverflow: "ellipsis",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
             <Text>
@@ -118,7 +118,7 @@ class LogList extends Component {
             style={{
               display: "block",
               textOverflow: "ellipsis",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
             {item && (
@@ -140,7 +140,7 @@ class LogList extends Component {
       onChildScroll,
       scrollTop,
       onRowsRendered,
-      width
+      width,
     }) => {
       let totalHeight = height - 285 < 200 ? height : height - 285;
       if (totalHeight !== this.props.totalHeight && totalHeight) {
@@ -167,7 +167,7 @@ class LogList extends Component {
       isScrolling,
       onChildScroll,
       scrollTop,
-      onRowsRendered
+      onRowsRendered,
     }) => (
       <AutoSizer disableHeight>
         {({ width }) =>
@@ -177,7 +177,7 @@ class LogList extends Component {
             onChildScroll,
             scrollTop,
             onRowsRendered,
-            width
+            width,
           })
         }
       </AutoSizer>
@@ -187,7 +187,7 @@ class LogList extends Component {
       height,
       isScrolling,
       onChildScroll,
-      scrollTop
+      scrollTop,
     }) => (
       <InfiniteLoader
         isRowLoaded={this.isRowLoaded}
@@ -200,7 +200,7 @@ class LogList extends Component {
             isScrolling,
             onChildScroll,
             scrollTop,
-            onRowsRendered
+            onRowsRendered,
           })
         }
       </InfiniteLoader>
@@ -237,11 +237,11 @@ class LogList extends Component {
                 style={{
                   display: "block",
                   textOverflow: "ellipsis",
-                  overflow: "hidden"
+                  overflow: "hidden",
                 }}
-                title={`${getLang({ id: "flow" })} mL/s`}
+                title={`${getLang({ id: "flow" })} L/h`}
               >
-                <strong>{getLang({ id: "flow" })} (mL/s)</strong>
+                <strong>{getLang({ id: "flow" })} (L/h)</strong>
               </Col>
 
               <Col
@@ -253,7 +253,7 @@ class LogList extends Component {
                 style={{
                   display: "block",
                   textOverflow: "ellipsis",
-                  overflow: "hidden"
+                  overflow: "hidden",
                 }}
                 title={`${getLang({ id: "temperature" })} °C`}
               >
@@ -269,7 +269,7 @@ class LogList extends Component {
                 style={{
                   display: "block",
                   textOverflow: "ellipsis",
-                  overflow: "hidden"
+                  overflow: "hidden",
                 }}
                 title={getLang({ id: "solenoid" })}
               >
@@ -288,7 +288,7 @@ class LogList extends Component {
               width: "100%",
               zIndex: 10,
               position: "absolute",
-              bottom: "80px"
+              bottom: "80px",
             }}
           />
         )}
@@ -297,14 +297,14 @@ class LogList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  log: state.log
+  log: state.log,
 });
 
 const mapDispatchToProps = {
   getLogRequest,
-  clearError
+  clearError,
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(LogList);
