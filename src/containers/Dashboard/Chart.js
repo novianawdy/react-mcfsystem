@@ -14,8 +14,8 @@ class CustomChart extends Component {
         scale={{
           created_at: {
             type: "time",
-            mask: "HH:mm:ss"
-          }
+            mask: "HH:mm:ss",
+          },
         }}
       >
         <Legend
@@ -23,33 +23,33 @@ class CustomChart extends Component {
           items={[
             {
               value: getLang({ id: "temperature" }),
-              fill: "red"
+              fill: "red",
             },
-            { value: getLang({ id: "flow" }), fill: "blue" }
+            { value: getLang({ id: "flow" }), fill: "blue" },
           ]}
         />
         <Axis name="created_at" />
         <Axis
           name="temperature"
           label={{
-            formatter: val => `${val}°C`,
+            formatter: (val) => `${val}°C`,
             textStyle: {
-              fontSize: "12px"
-            }
+              fontSize: "12px",
+            },
           }}
         />
         <Axis
           name="flow"
           label={{
-            formatter: val => `${val} mL/s`,
+            formatter: (val) => `${val} L/h`,
             textStyle: {
-              fontSize: "12px"
-            }
+              fontSize: "12px",
+            },
           }}
         />
         <Tooltip
           crosshairs={{
-            type: "y"
+            type: "y",
           }}
         />
         <Geom
@@ -61,9 +61,9 @@ class CustomChart extends Component {
               // title: created_at,
               return {
                 name: getLang({ id: "flow" }),
-                value: `${flow} mL/s`
+                value: `${flow} L/h`,
               };
-            }
+            },
           ]}
           size={2}
           color={"blue"}
@@ -78,16 +78,16 @@ class CustomChart extends Component {
               // title: created_at,
               return {
                 name: getLang({ id: "flow" }),
-                value: `${flow} mL/s`
+                value: `${flow} L/h`,
               };
-            }
+            },
           ]}
           size={4}
           shape={"circle"}
           color={"blue"}
           style={{
             stroke: "#fff",
-            lineWidth: 1
+            lineWidth: 1,
           }}
         />
         <Geom
@@ -99,9 +99,9 @@ class CustomChart extends Component {
               return {
                 // title: created_at,
                 name: getLang({ id: "temperature" }),
-                value: `${temperature}°C`
+                value: `${temperature}°C`,
               };
-            }
+            },
           ]}
           size={2}
           color={"red"}
@@ -116,16 +116,16 @@ class CustomChart extends Component {
               return {
                 // title: created_at,
                 name: getLang({ id: "temperature" }),
-                value: `${temperature}°C`
+                value: `${temperature}°C`,
               };
-            }
+            },
           ]}
           size={4}
           shape={"circle"}
           color={"red"}
           style={{
             stroke: "#fff",
-            lineWidth: 1
+            lineWidth: 1,
           }}
         />
       </Chart>
