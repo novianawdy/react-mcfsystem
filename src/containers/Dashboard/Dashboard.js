@@ -191,7 +191,7 @@ class Dashboard extends Component {
                 precision={2}
                 valueStyle={{ color: flowColor }}
                 prefix={flowIcon && <Icon type={flowIcon} />}
-                suffix="L/h"
+                suffix="mL/s"
               />
             </Card>
           </Col>

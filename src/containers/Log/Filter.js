@@ -9,7 +9,7 @@ import {
   InputNumber,
   DatePicker,
   Row,
-  Col,
+  Col
 } from "antd";
 
 import action from "../../redux/log/action";
@@ -33,7 +33,7 @@ class FilterForm extends Component {
     }
   };
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     const { filter } = this.props.log;
     if (prevProps.log.filter !== filter && !filter) {
       this.props.form.resetFields();
@@ -49,7 +49,7 @@ class FilterForm extends Component {
     });
   };
 
-  handleFilter = (val) => {
+  handleFilter = val => {
     const { getLogRequest, handleModal, resetLoadedRows } = this.props;
 
     getLogRequest(1, val);
@@ -91,7 +91,7 @@ class FilterForm extends Component {
               <Col xs={8} sm={8} md={8} lg={7} xl={7}>
                 <Form.Item label={getLang({ id: "searchBy" })}>
                   {getFieldDecorator("search_by", {
-                    initialValue: null,
+                    initialValue: null
                   })(
                     <Select style={{ width: "100%" }}>
                       <Option value={null}>{getLang({ id: "all" })}</Option>
@@ -107,15 +107,15 @@ class FilterForm extends Component {
               <Col xs={16} sm={16} md={16} lg={17} xl={17}>
                 <Form.Item label={getLang({ id: "search" })}>
                   {getFieldDecorator("search", {
-                    initialValue: undefined,
+                    initialValue: undefined
                   })(
                     <Input
                       suffix={<Icon type="search" />}
                       style={{ width: "100%" }}
                       placeholder={`${getLang({
-                        id: "flow",
-                      })} (L/h), ${getLang({
-                        id: "temperature",
+                        id: "flow"
+                      })} (mL/s), ${getLang({
+                        id: "temperature"
                       })} (°C)`}
                       // placeholder="30"
                       allowClear
@@ -131,7 +131,7 @@ class FilterForm extends Component {
               <Col xs={8} sm={8} md={8} lg={7} xl={7}>
                 <Form.Item label={getLang({ id: "operator" })}>
                   {getFieldDecorator("flow_is", {
-                    initialValue: null,
+                    initialValue: null
                   })(
                     <Select style={{ width: "100%" }}>
                       <Option value={null}>{getLang({ id: "all" })}</Option>
@@ -147,20 +147,20 @@ class FilterForm extends Component {
               </Col>
 
               <Col xs={16} sm={16} md={16} lg={17} xl={17}>
-                <Form.Item label={`${getLang({ id: "flow" })} (L/h)`}>
+                <Form.Item label={`${getLang({ id: "flow" })} (mL/s)`}>
                   {getFieldDecorator("flow", {
-                    initialValue: undefined,
+                    initialValue: undefined
                   })(
                     <InputNumber
-                      suffix="L/h"
+                      suffix="mL/s"
                       style={{ width: "100%" }}
                       placeholder={getLang({ id: "flow" })}
                       // placeholder="100"
                       allowClear
-                      formatter={(value) =>
+                      formatter={value =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      parser={value => value.replace(/\$\s?|(,*)/g, "")}
                     />
                   )}
                 </Form.Item>
@@ -173,7 +173,7 @@ class FilterForm extends Component {
               <Col xs={8} sm={8} md={8} lg={7} xl={7}>
                 <Form.Item label={getLang({ id: "operator" })}>
                   {getFieldDecorator("temperature_is", {
-                    initialValue: null,
+                    initialValue: null
                   })(
                     <Select style={{ width: "100%" }}>
                       <Option value={null}>{getLang({ id: "all" })}</Option>
@@ -191,18 +191,18 @@ class FilterForm extends Component {
               <Col xs={16} sm={16} md={16} lg={17} xl={17}>
                 <Form.Item label={`${getLang({ id: "temperature" })} (°C)`}>
                   {getFieldDecorator("temperature", {
-                    initialValue: undefined,
+                    initialValue: undefined
                   })(
                     <InputNumber
-                      suffix="L/h"
+                      suffix="mL/s"
                       style={{ width: "100%" }}
                       placeholder={getLang({ id: "temperature" })}
                       // placeholder="500"
                       allowClear
-                      formatter={(value) =>
+                      formatter={value =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      parser={value => value.replace(/\$\s?|(,*)/g, "")}
                     />
                   )}
                 </Form.Item>
@@ -212,7 +212,7 @@ class FilterForm extends Component {
 
           <Form.Item label={getLang({ id: "date" })}>
             {getFieldDecorator("date", {
-              initialValue: undefined,
+              initialValue: undefined
             })(
               <RangePicker
                 showTime={{ format: "HH:mm:ss" }}
@@ -229,11 +229,11 @@ class FilterForm extends Component {
 
 const Filter = Form.create({ name: "log_filter_form" })(FilterForm);
 
-const mapStateToProps = (state) => ({
-  log: state.log,
+const mapStateToProps = state => ({
+  log: state.log
 });
 
 const mapDispatchToProps = {
-  getLogRequest,
+  getLogRequest
 };
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Filter);
